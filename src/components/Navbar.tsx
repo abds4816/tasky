@@ -5,15 +5,15 @@ import { buttonVariants } from "./ui/button";
 import Link from "next/link";
 import { navLinks } from "@/constants/nav-links";
 import MobileMenu from "./MobileMenu";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   return (
     <header className="border-b">
       <div className="container flex justify-between items-center py-4">
-        <div className="flex items-center gap-6">
-          <MobileMenu />
+        <div className="flex items-center gap-8">
           <Logo />
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-4">
             {navLinks.map((link, index) => (
               <Link
                 key={index}
@@ -27,7 +27,11 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-2">
           <ToggleTheme />
-          <Link href="/login" className={buttonVariants()}>
+          <MobileMenu />
+          <Link
+            href="/login"
+            className={cn(buttonVariants(), "hidden md:flex")}
+          >
             get started
           </Link>
         </div>
