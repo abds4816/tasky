@@ -47,7 +47,7 @@ export const authOptions:NextAuthOptions = {
           }
         },
         redirect(){
-            return '/login'
+            return '/dashboard'
         }
       },
 }
