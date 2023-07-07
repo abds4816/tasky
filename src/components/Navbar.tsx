@@ -6,8 +6,12 @@ import Link from "next/link";
 import { navLinks } from "@/constants/nav-links";
 import MobileMenu from "./MobileMenu";
 import { cn } from "@/lib/utils";
+import UserMenu from "./UserMenu";
+import { getCurrentUser } from "@/lib/session";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const user = await getCurrentUser();
+
   return (
     <header className="border-b">
       <div className="container flex justify-between items-center py-4">
@@ -27,13 +31,17 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-2">
           <ToggleTheme />
+          {!user ? (
+            <Link
+              href="/login"
+              className={cn(buttonVariants(), "hidden md:flex")}
+            >
+              get started
+            </Link>
+          ) : (
+            <UserMenu user={user} />
+          )}
           <MobileMenu />
-          <Link
-            href="/login"
-            className={cn(buttonVariants(), "hidden md:flex")}
-          >
-            get started
-          </Link>
         </div>
       </div>
     </header>
