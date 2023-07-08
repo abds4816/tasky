@@ -5,9 +5,13 @@ import GoogleProvider from "next-auth/providers/google"
 
 export const authOptions:NextAuthOptions = {
     adapter: PrismaAdapter(db) as any,
+    session:{
+      strategy:"jwt"
+    },
     pages: {
-        signIn: '/login',
-      },
+      signIn: '/login',
+    },
+    secret: process.env.NEXTAUTH_SECRET,
     providers:[
         GoogleProvider({
             clientId:process.env.GOOGLE_ID!! as string,
