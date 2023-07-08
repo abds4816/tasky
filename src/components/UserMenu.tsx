@@ -27,7 +27,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel className="flex flex-col gap-y-4">
+        <DropdownMenuLabel className="flex flex-col gap-y-2">
           <h4>{name}</h4>
           <p className="font-normal">{email}</p>
         </DropdownMenuLabel>
