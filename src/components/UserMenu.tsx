@@ -10,6 +10,7 @@ import {
 import { User } from "next-auth";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import SignOutButton from "./SignOutButton";
+import Link from "next/link";
 
 interface UserMenuProps {
   user: User;
@@ -26,14 +27,18 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel className="flexx flex-col gap-y-4">
+        <DropdownMenuLabel className="flex flex-col gap-y-4">
           <h4>{name}</h4>
-          <p>{email}</p>
+          <p className="font-normal">{email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
+        <Link href="/dashboard">
+          <DropdownMenuItem>Dashboard</DropdownMenuItem>
+        </Link>
+        <Link href="/settings">
+          <DropdownMenuItem>settings</DropdownMenuItem>
+        </Link>
+        <DropdownMenuSeparator />
         <SignOutButton />
       </DropdownMenuContent>
     </DropdownMenu>
