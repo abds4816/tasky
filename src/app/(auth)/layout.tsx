@@ -7,7 +7,7 @@ export default function dashboardLayout({
 }) {
   return (
     <>
-      <main className="container pt-20">{children}</main>
+      <main className="container h-screen">{children}</main>
     </>
   );
 }

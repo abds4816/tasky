@@ -8,7 +8,7 @@ const EmptyState = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex h-[450px] justify-center items-center border-2 border-dashed rounded-md",
+      "flex h-[450px] justify-center items-center border-2 border-dashed rounded-md p-4",
       className
     )}
     {...props}
