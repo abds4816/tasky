@@ -1,9 +1,6 @@
-interface INavLinks{
-    title : string,
-    href  :string
-}
+import { INavLink } from "@/types/intefaces";
 
-export const navLinks:INavLinks[] = [
+export const marketingLinks:INavLink[] = [
     {
         title:"features",
         href:"/features",
@@ -16,4 +13,19 @@ export const navLinks:INavLinks[] = [
         title: "about",
         href: "/about"
     }
+]
+
+export const dashboardLinks:INavLink[]=[
+    {
+        title:'overview',
+        href:'/dashboard'
+    },
+    {
+        title:'projects',
+        href:'/projects'
+    },
+    {
+        title:'settings',
+        href:'/settings'
+    },
 ]

@@ -1,15 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import { ToggleTheme } from "./ToggleTheme";
 import Logo from "./Logo";
 import { buttonVariants } from "./ui/button";
 import Link from "next/link";
-import { navLinks } from "@/constants/nav-links";
 import MobileMenu from "./MobileMenu";
 import { cn } from "@/lib/utils";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/lib/session";
+import { INavLink } from "@/types/intefaces";
 
-const Navbar = async () => {
+interface NavbarProps {
+  items: INavLink[];
+}
+
+const Navbar: FC<NavbarProps> = async ({ items }) => {
   const user = await getCurrentUser();
 
   return (
@@ -18,13 +22,13 @@ const Navbar = async () => {
         <div className="flex items-center gap-8">
           <Logo />
           <nav className="hidden md:flex items-center gap-4">
-            {navLinks.map((link, index) => (
+            {items.map((item, index) => (
               <Link
                 key={index}
-                href={link.href}
+                href={item.href}
                 className="text-sm font-medium text-muted-foreground capitalize"
               >
-                {link.title}
+                {item.title}
               </Link>
             ))}
           </nav>
@@ -41,7 +45,7 @@ const Navbar = async () => {
           ) : (
             <UserMenu user={user} />
           )}
-          <MobileMenu />
+          <MobileMenu items={items} user={user} />
         </div>
       </div>
     </header>

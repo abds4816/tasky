@@ -1,3 +1,5 @@
+import Navbar from "@/components/Navbar";
+import { marketingLinks } from "@/constants/nav-links";
 import React from "react";
 
 export default function MarketingLayout({
@@ -6,8 +8,9 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="pt-20">
-      <div className="container">{children}</div>
-    </main>
+    <>
+      <Navbar items={marketingLinks} />
+      <main className="container pt-20">{children}</main>
+    </>
   );
 }

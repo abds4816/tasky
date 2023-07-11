@@ -1,11 +1,18 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { navLinks } from "@/constants/nav-links";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
+import { INavLink } from "@/types/intefaces";
+import { FC } from "react";
+import { User } from "next-auth";
 
-const MobileMenu = () => {
+interface MobileMenuProps {
+  items: INavLink[];
+  user: User | null | undefined;
+}
+
+const MobileMenu: FC<MobileMenuProps> = ({ items, user }) => {
   return (
     <Sheet>
       <SheetTrigger
@@ -17,19 +24,21 @@ const MobileMenu = () => {
         <Menu />
       </SheetTrigger>
       <SheetContent side="left">
-        <nav className="w-full h-full grid place-content-center gap-8">
-          {navLinks.map((link, index) => (
+        <nav className="w-full h-full grid place-content-center gap-6">
+          {items.map((item, index) => (
             <Link
               key={index}
-              href={link.href}
-              className="w-full text-2xl capitalize"
+              href={item.href}
+              className="w-full text-xl capitalize"
             >
-              {link.title}
+              {item.title}
             </Link>
           ))}
-          <Link href="/login" className={buttonVariants()}>
-            get started
-          </Link>
+          {!user && (
+            <Link href="/login" className={buttonVariants()}>
+              get started
+            </Link>
+          )}
         </nav>
       </SheetContent>
     </Sheet>
