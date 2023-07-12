@@ -1,6 +1,7 @@
 import { getProjects } from "@/actions/getProjects";
 import AddProject from "@/components/AddProject";
 import PageHeader from "@/components/PageHeader";
+import ProjectCard from "@/components/ProjectCard";
 import {
   EmptyState,
   EmptyStateActions,
@@ -9,6 +10,7 @@ import {
   EmptyStateIcon,
   EmptyStateTitle,
 } from "@/components/ui/empty-state";
+import { Input } from "@/components/ui/input";
 import { Folder } from "lucide-react";
 import React from "react";
 
@@ -20,9 +22,7 @@ export default async function projects() {
         title="projects"
         description="Here's a list of your projects!"
       />
-      {projects.length ? (
-        <p>hello world!</p>
-      ) : (
+      {!projects.length ? (
         <EmptyState className="mt-4 md:mt-6 lg:mt-8">
           <EmptyStateContent>
             <EmptyStateIcon>
@@ -37,6 +37,18 @@ export default async function projects() {
             </EmptyStateActions>
           </EmptyStateContent>
         </EmptyState>
+      ) : (
+        <section className="flex flex-col gap-8">
+          <div className="flex items-center justify-between gap-4">
+            <Input type="search" placeholder="search projects..." />
+            <AddProject />
+          </div>
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} {...project} />
+            ))}
+          </section>
+        </section>
       )}
     </div>
   );
