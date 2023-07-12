@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export async function POST(req: Request) {
   try {
-    const body = req.json();
+    const body = await req.json();
     const { name, description } = ProjectValidator.parse(body);
     const user = await getCurrentUser();
 
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         userId: user.id,
         name,
         description,
-      }
+      },
     });
     return new Response("ok");
   } catch (error) {
