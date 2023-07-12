@@ -6,6 +6,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
+import AddProjectForm from "./AddProjectForm";
 
 const AddProject = () => {
   return (
@@ -17,8 +18,10 @@ const AddProject = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>add project</DialogHeader>
-        test
+        <DialogHeader className="font-semibold capitalize text-xl">
+          add project
+        </DialogHeader>
+        <AddProjectForm />
       </DialogContent>
     </Dialog>
   );
