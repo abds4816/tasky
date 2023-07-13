@@ -52,7 +52,7 @@ const DeleteEntityCard: FC<DeleteEntityCardProps> = ({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>{form}</AlertDialogAction>
+              <AlertDialogAction asChild>{form}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

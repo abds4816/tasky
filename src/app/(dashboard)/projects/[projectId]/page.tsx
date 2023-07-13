@@ -16,11 +16,15 @@ const page: FC<ProjectPageProps> = async ({ params }) => {
   const { projectId } = params;
   const project = await getProjectById(projectId);
 
+  if (!project) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-y-6 md:gap-y-8">
       <PageHeader title={project?.name} description={project?.description} />
       <Tabs defaultValue="overview">
-        <TabsList className="grid w-80 grid-cols-3 mb-4">
+        <TabsList className="grid w-full md:w-80 grid-cols-3 mb-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="tasks">Tasks</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
