@@ -20,7 +20,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
 }) => {
   return (
     <Link href={`/projects/${id}`}>
-      <Card>
+      <Card className="h-full">
         <CardHeader>
           <CardTitle>{name}</CardTitle>
           <CardDescription>{description}</CardDescription>

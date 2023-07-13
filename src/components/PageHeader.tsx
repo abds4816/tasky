@@ -1,8 +1,8 @@
 import { FC, ReactNode } from "react";
 
 interface PageHeaderProps {
-  title: string;
-  description?: string;
+  title: string | undefined;
+  description?: string | null | undefined;
   children?: ReactNode;
 }
 

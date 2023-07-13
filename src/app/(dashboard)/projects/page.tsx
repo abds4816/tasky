@@ -1,5 +1,6 @@
 import { getProjects } from "@/actions/getProjects";
-import AddProject from "@/components/AddProject";
+import AddEntityModal from "@/components/AddEntityModal";
+import AddProjectForm from "@/components/AddProjectForm";
 import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
 import {
@@ -21,7 +22,13 @@ export default async function projects() {
       <PageHeader
         title="projects"
         description="Here's a list of your projects!"
-      />
+      >
+        <AddEntityModal
+          entity="project"
+          form={<AddProjectForm />}
+          ButtonVariant="default"
+        />
+      </PageHeader>
       {!projects.length ? (
         <EmptyState className="mt-4 md:mt-6 lg:mt-8">
           <EmptyStateContent>
@@ -33,7 +40,11 @@ export default async function projects() {
               You have not added any projects. Add one below.
             </EmptyStateDescription>
             <EmptyStateActions>
-              <AddProject />
+              <AddEntityModal
+                entity="project"
+                form={<AddProjectForm />}
+                ButtonVariant="default"
+              />
             </EmptyStateActions>
           </EmptyStateContent>
         </EmptyState>
@@ -41,7 +52,7 @@ export default async function projects() {
         <section className="flex flex-col gap-8">
           <div className="flex items-center justify-between gap-4">
             <Input type="search" placeholder="search projects..." />
-            <AddProject />
+            {/* <AddProject /> */}
           </div>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project) => (

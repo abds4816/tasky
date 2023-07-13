@@ -1,14 +1,19 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
-export interface INavLink{
-    title : string,
-    href  :string
+export interface INavLink {
+  title: string;
+  href: string;
 }
 
-export interface IStatistic{
-    title:string,
-    icon:ReactNode,
-    value:number|string,
-    percentageChange:number|string,
-    description:string
+export interface IStatistic {
+  title: string;
+  icon: ReactNode;
+  value: number | string;
+  percentageChange: number | string;
+  description: string;
+}
+
+export interface Entity {
+  entity: "project" | "task";
+  form: ReactNode;
 }

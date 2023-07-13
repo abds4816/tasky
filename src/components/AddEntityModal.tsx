@@ -5,26 +5,35 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Entity } from "@/types/intefaces";
 import { Plus } from "lucide-react";
-import AddProjectForm from "./AddProjectForm";
+import { FC } from "react";
 
-const AddProject = () => {
+interface AddProjectProps extends Entity {
+  ButtonVariant?: "default" | "secondary" | "outline" | "ghost";
+}
+
+const AddEntityModal: FC<AddProjectProps> = ({
+  entity,
+  form,
+  ButtonVariant = "outline",
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant={ButtonVariant}>
           <Plus className="w-4 h-4" />
-          add project
+          add {entity}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="font-semibold capitalize text-xl">
-          add project
+          add {entity}
         </DialogHeader>
-        <AddProjectForm />
+        {form}
       </DialogContent>
     </Dialog>
   );
 };
 
-export default AddProject;
+export default AddEntityModal;
