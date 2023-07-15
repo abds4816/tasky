@@ -11,6 +11,8 @@ import {
 import { LayoutList } from "lucide-react";
 import AddEntityModal from "../AddEntityModal";
 import AddTaskForm from "../AddTaskForm";
+import { DataTable } from "@/components/project/tasks/DataTable";
+import { columns } from "./tasks/Columns";
 
 interface TasksTableProps {
   tasks: Task[] | undefined;
@@ -37,9 +39,7 @@ const TasksTable: FC<TasksTableProps> = async ({ tasks }) => {
   }
   return (
     <>
-      {tasks.map((task) => (
-        <p key={task.id}>{task.title}</p>
-      ))}
+      <DataTable columns={columns} data={tasks} />
     </>
   );
 };
