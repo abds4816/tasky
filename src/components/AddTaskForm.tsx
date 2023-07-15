@@ -21,22 +21,56 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMutation } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 const AddTaskForm = () => {
+  const params = useParams();
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<TaskRequest>({
     resolver: zodResolver(TaskValidator),
+  });
+
+  const { mutate: addTask, isLoading } = useMutation({
+    mutationFn: async ({ title, status, priority }: TaskRequest) => {
+      const payload: TaskRequest = { title, status, priority };
+      const { data } = await axios.post(
+        `/api/${params.projectId}/tasks`,
+        payload
+      );
+      return data;
+    },
+    onError: () => {
+      return toast({
+        title: "Something went wrong",
+        description: "Task wasn't created successfully. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    },
+    onSuccess: () => {
+      router.refresh();
+      return toast({
+        title: "Task created.",
+        description: "Task was created successfully!",
+        duration: 5000,
+      });
+    },
   });
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(
-          () => console.log("test")
-
-          // addProject({
-          //   name: form.getValues("name"),
-          //   description: form.getValues("description"),
-          // })
+        onSubmit={form.handleSubmit(() =>
+          addTask({
+            title: form.getValues("title"),
+            status: form.getValues("status"),
+            priority: form.getValues("priority"),
+          })
         )}
         className="space-y-6"
       >
@@ -63,20 +97,21 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>priority</FormLabel>
-              <Select>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue
-                      defaultValue=""
-                      placeholder="select task priority"
-                    />
+                    <SelectValue placeholder="select task priority" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="TODO">todo</SelectItem>
-                  <SelectItem value="IN_PROGRESS">in progress</SelectItem>
-                  <SelectItem value="DONE">done</SelectItem>
-                  <SelectItem value="CANCELED">canceled</SelectItem>
+                  <SelectItem value="LOW">low</SelectItem>
+                  <SelectItem value="MEDIUM">medium</SelectItem>
+                  <SelectItem value="HIGH">high</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -90,7 +125,12 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>status</FormLabel>
-              <Select>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue
@@ -112,10 +152,7 @@ const AddTaskForm = () => {
           )}
         />
         <div className="flex justify-end">
-          <Button
-            type="submit"
-            // isLoading={isLoading}
-          >
+          <Button type="submit" isLoading={isLoading}>
             Submit
           </Button>
         </div>

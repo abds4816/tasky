@@ -13,7 +13,7 @@ import AddEntityModal from "../AddEntityModal";
 import AddTaskForm from "../AddTaskForm";
 
 interface TasksTableProps {
-  tasks: Task[] | null | undefined;
+  tasks: Task[] | undefined;
 }
 
 const TasksTable: FC<TasksTableProps> = async ({ tasks }) => {
@@ -35,7 +35,13 @@ const TasksTable: FC<TasksTableProps> = async ({ tasks }) => {
       </EmptyState>
     );
   }
-  return <></>;
+  return (
+    <>
+      {tasks.map((task) => (
+        <p key={task.id}>{task.title}</p>
+      ))}
+    </>
+  );
 };
 
 export default TasksTable;

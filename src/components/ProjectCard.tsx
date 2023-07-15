@@ -15,7 +15,6 @@ const ProjectCard: FC<ProjectCardProps> = ({
   id,
   name,
   description,
-  userId,
   createdAt,
   updatedAt,
 }) => {
@@ -27,7 +26,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardFooter>
-          <p>{new Date(createdAt).getDay()}</p>
+          <p>{new Date(createdAt).getDate()} days ago</p>
         </CardFooter>
       </Card>
     </Link>

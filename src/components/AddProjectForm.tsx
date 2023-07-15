@@ -45,7 +45,7 @@ const AddProjectForm = () => {
     onSuccess: () => {
       router.refresh();
       return toast({
-        title: "project created.",
+        title: "Project created.",
         description: "Project was created successfully!",
         duration: 5000,
       });
@@ -73,6 +73,7 @@ const AddProjectForm = () => {
                 <Input
                   type="text"
                   placeholder="enter project name..."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -93,6 +94,7 @@ const AddProjectForm = () => {
                 <Input
                   type="text"
                   placeholder="enter project description..."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>

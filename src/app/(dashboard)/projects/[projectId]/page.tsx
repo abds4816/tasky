@@ -4,6 +4,7 @@ import ProjectOverview from "@/components/project/ProjectOverview";
 import ProjectSettings from "@/components/project/ProjectSettings";
 import TasksTable from "@/components/project/TasksTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { notFound } from "next/navigation";
 import { FC, Suspense } from "react";
 
 interface ProjectPageProps {
@@ -17,7 +18,7 @@ const page: FC<ProjectPageProps> = async ({ params }) => {
   const project = await getProjectById(projectId);
 
   if (!project) {
-    return null;
+    notFound();
   }
 
   return (
