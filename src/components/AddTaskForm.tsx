@@ -93,38 +93,10 @@ const AddTaskForm = () => {
         />
         <FormField
           control={form.control}
-          name="priority"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>priority</FormLabel>
-              <Select
-                disabled={isLoading}
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="select task priority" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="LOW">low</SelectItem>
-                  <SelectItem value="MEDIUM">medium</SelectItem>
-                  <SelectItem value="HIGH">high</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>status</FormLabel>
+              <FormLabel>Status</FormLabel>
               <Select
                 disabled={isLoading}
                 onValueChange={field.onChange}
@@ -144,6 +116,34 @@ const AddTaskForm = () => {
                   <SelectItem value="IN_PROGRESS">in progress</SelectItem>
                   <SelectItem value="DONE">done</SelectItem>
                   <SelectItem value="CANCELED">canceled</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Priority</FormLabel>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select task priority" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="LOW">low</SelectItem>
+                  <SelectItem value="MEDIUM">medium</SelectItem>
+                  <SelectItem value="HIGH">high</SelectItem>
                 </SelectContent>
               </Select>
 
