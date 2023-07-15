@@ -99,7 +99,6 @@ const AddTaskForm = () => {
               <FormLabel>Status</FormLabel>
               <Select
                 disabled={isLoading}
-                onValueChange={field.onChange}
                 value={field.value}
                 defaultValue={field.value}
               >
@@ -131,7 +130,6 @@ const AddTaskForm = () => {
               <FormLabel>Priority</FormLabel>
               <Select
                 disabled={isLoading}
-                onValueChange={field.onChange}
                 value={field.value}
                 defaultValue={field.value}
               >
