@@ -50,10 +50,7 @@ export default async function projects() {
         </EmptyState>
       ) : (
         <section className="flex flex-col gap-8">
-          <div className="flex items-center justify-between gap-4">
-            <Input type="search" placeholder="search projects..." />
-            {/* <AddProject /> */}
-          </div>
+          <Input type="search" placeholder="search projects..." />
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project) => (
               <ProjectCard key={project.id} {...project} />

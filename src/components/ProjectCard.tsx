@@ -3,6 +3,7 @@ import { FC } from "react";
 import {
   Card,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -25,6 +26,9 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <CardTitle>{name}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
+        <CardFooter>
+          <p>{new Date(createdAt).getDay()}</p>
+        </CardFooter>
       </Card>
     </Link>
   );
