@@ -97,23 +97,19 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <Select
-                disabled={isLoading}
-                onValueChange={() => field.onChange}
-                defaultValue={field.value}
-              >
-                <FormControl>
+              <FormControl>
+                <Select disabled={isLoading} {...field}>
                   <SelectTrigger>
                     <SelectValue placeholder="select task status" />
                   </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="TODO">todo</SelectItem>
-                  <SelectItem value="IN_PROGRESS">in progress</SelectItem>
-                  <SelectItem value="DONE">done</SelectItem>
-                  <SelectItem value="CANCELED">canceled</SelectItem>
-                </SelectContent>
-              </Select>
+                  <SelectContent>
+                    <SelectItem value="TODO">todo</SelectItem>
+                    <SelectItem value="IN_PROGRESS">in progress</SelectItem>
+                    <SelectItem value="DONE">done</SelectItem>
+                    <SelectItem value="CANCELED">canceled</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
 
               <FormMessage />
             </FormItem>
@@ -125,11 +121,7 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Priority</FormLabel>
-              <Select
-                disabled={isLoading}
-                onValueChange={() => field.onChange}
-                defaultValue={field.value}
-              >
+              <Select disabled={isLoading} {...field}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task priority" />

@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 interface ProjectCardProps extends Project {}
 
@@ -26,7 +27,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardFooter>
-          <p>{new Date(createdAt).getDate()} days ago</p>
+          <p>{formatDate(createdAt.toLocaleString())}</p>
         </CardFooter>
       </Card>
     </Link>

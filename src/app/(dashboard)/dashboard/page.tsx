@@ -1,17 +1,23 @@
+import { getProjects } from "@/actions/getProjects";
 import PageHeader from "@/components/PageHeader";
 import StatisticCard from "@/components/StatisticCard";
 import { Card } from "@/components/ui/card";
-import { statistics } from "@/constants/statistics";
+import { Folders } from "lucide-react";
 
 export default async function dashboard() {
+  const projects = await getProjects();
   return (
     <div className="flex flex-col gap-y-6 md:gap-y-8">
       <PageHeader title="dashboard" />
       {/* staistics cards */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statistics.map((statistic, index) => (
-          <StatisticCard key={index} {...statistic} />
-        ))}
+        <StatisticCard
+          title="Total projects"
+          icon={<Folders />}
+          value={projects.length}
+          percentageChange={100}
+          description="test desc"
+        />
       </section>
       {/* staistics cards */}
 
