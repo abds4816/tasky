@@ -1,11 +1,13 @@
+import { getCompletedTasks } from "@/actions/getCompletedTasks";
 import { getProjects } from "@/actions/getProjects";
 import PageHeader from "@/components/PageHeader";
 import StatisticCard from "@/components/StatisticCard";
 import { Card } from "@/components/ui/card";
-import { Folders } from "lucide-react";
+import { Check, Folders } from "lucide-react";
 
 export default async function dashboard() {
   const projects = await getProjects();
+  const completedTasks = await getCompletedTasks();
   return (
     <div className="flex flex-col gap-y-6 md:gap-y-8">
       <PageHeader title="dashboard" />
@@ -15,6 +17,13 @@ export default async function dashboard() {
           title="Total projects"
           icon={<Folders />}
           value={projects.length}
+          percentageChange={100}
+          description="test desc"
+        />
+        <StatisticCard
+          title="Completed Tasks"
+          icon={<Check />}
+          value={completedTasks.length}
           percentageChange={100}
           description="test desc"
         />
