@@ -12,7 +12,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { TaskRequest, TaskValidator } from "@/lib/validators/task";
+import {
+  TaskRequest,
+  TaskValidator,
+  taskDefaultValues,
+} from "@/lib/validators/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
@@ -33,6 +37,8 @@ const AddTaskForm = () => {
 
   const form = useForm<TaskRequest>({
     resolver: zodResolver(TaskValidator),
+    defaultValues: taskDefaultValues,
+    mode: "onChange",
   });
 
   const { mutate: addTask, isLoading } = useMutation({
@@ -97,23 +103,23 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <FormControl>
-                <Select
-                  disabled={isLoading}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
+                <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task status" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="TODO">todo</SelectItem>
-                    <SelectItem value="IN_PROGRESS">in progress</SelectItem>
-                    <SelectItem value="DONE">done</SelectItem>
-                    <SelectItem value="CANCELED">canceled</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="TODO">todo</SelectItem>
+                  <SelectItem value="IN_PROGRESS">in progress</SelectItem>
+                  <SelectItem value="DONE">done</SelectItem>
+                  <SelectItem value="CANCELED">canceled</SelectItem>
+                </SelectContent>
+              </Select>
 
               <FormMessage />
             </FormItem>

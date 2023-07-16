@@ -2,7 +2,7 @@ import { getCompletedTasks } from "@/actions/getCompletedTasks";
 import { getProjects } from "@/actions/getProjects";
 import PageHeader from "@/components/PageHeader";
 import StatisticCard from "@/components/StatisticCard";
-import { Card } from "@/components/ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Check, Folders } from "lucide-react";
 
 export default async function dashboard() {
@@ -31,8 +31,18 @@ export default async function dashboard() {
       {/* staistics cards */}
 
       <section className="grid grid-cols-12 gap-4">
-        <Card className="h-20 col-span-12 lg:col-span-7"></Card>
-        <Card className="h-20 col-span-12 lg:col-span-5"></Card>
+        <Card className="col-span-12 lg:col-span-7">
+          <CardTitle>Recent news</CardTitle>
+          <CardDescription>
+            Your teams complete 43 tasks this week
+          </CardDescription>
+        </Card>
+        <Card className="col-span-12 lg:col-span-5">
+          <CardTitle>Recent news</CardTitle>
+          <CardDescription>
+            Your teams complete 43 tasks this week
+          </CardDescription>
+        </Card>
       </section>
     </div>
   );

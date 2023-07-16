@@ -3,6 +3,7 @@ import AddEntityModal from "@/components/AddEntityModal";
 import AddProjectForm from "@/components/AddProjectForm";
 import PageHeader from "@/components/PageHeader";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectsSection from "@/components/ProjectsSection";
 import {
   EmptyState,
   EmptyStateActions,
@@ -49,14 +50,7 @@ export default async function projects() {
           </EmptyStateContent>
         </EmptyState>
       ) : (
-        <section className="flex flex-col gap-8">
-          <Input type="search" placeholder="search projects..." />
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} {...project} />
-            ))}
-          </section>
-        </section>
+        <ProjectsSection projects={projects} />
       )}
     </div>
   );

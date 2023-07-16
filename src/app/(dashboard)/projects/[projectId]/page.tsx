@@ -37,7 +37,7 @@ const page: FC<ProjectPageProps> = async ({ params }) => {
         </TabsContent>
         <TabsContent value="tasks">
           <Suspense fallback="loading...">
-            <TasksTable tasks={project?.tasks} />
+            <TasksTable tasks={project?.tasks.reverse()} />
           </Suspense>
         </TabsContent>
         <TabsContent value="settings">

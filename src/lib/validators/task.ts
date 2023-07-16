@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 export const TaskValidator = z.object({
   title: z
@@ -15,3 +15,8 @@ export const TaskValidator = z.object({
 });
 
 export type TaskRequest = z.infer<typeof TaskValidator>;
+
+export const taskDefaultValues: Partial<TaskRequest> = {
+  status: "TODO",
+  priority: "MEDIUM",
+};

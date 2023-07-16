@@ -17,3 +17,10 @@ export interface Entity {
   entity: "project" | "task";
   form: ReactNode;
 }
+
+export interface PricingItem {
+  title: string;
+  description: string;
+  monthlyPrice: number;
+  features: string[];
+}
