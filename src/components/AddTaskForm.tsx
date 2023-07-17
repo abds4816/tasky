@@ -37,7 +37,7 @@ const AddTaskForm = () => {
 
   const form = useForm<TaskRequest>({
     resolver: zodResolver(TaskValidator),
-    defaultValues: taskDefaultValues,
+    // defaultValues: taskDefaultValues,
     mode: "onChange",
   });
 
@@ -89,6 +89,7 @@ const AddTaskForm = () => {
               <FormControl>
                 <Input
                   type="text"
+                  disabled={isLoading}
                   placeholder="enter task title..."
                   {...field}
                 />
@@ -103,7 +104,12 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <Select disabled={isLoading} {...field}>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task status" />
@@ -127,7 +133,12 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Priority</FormLabel>
-              <Select disabled={isLoading} {...field}>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task priority" />
