@@ -33,7 +33,7 @@ const AddTaskForm = () => {
 
   const form = useForm<TaskRequest>({
     resolver: zodResolver(TaskValidator),
-    // mode: "onChange",
+    mode: "onChange",
   });
 
   const { mutate: addTask, isLoading } = useMutation({
@@ -99,11 +99,7 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <Select
-                disabled={isLoading}
-                onValueChange={field.onChange}
-                value={field.value}
-              >
+              <Select disabled={isLoading} {...field}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task status" />
@@ -129,8 +125,7 @@ const AddTaskForm = () => {
               <FormLabel>Priority</FormLabel>
               <Select
                 disabled={isLoading}
-                onValueChange={field.onChange}
-                value={field.value}
+                {...field}
                 defaultValue={field.value}
               >
                 <FormControl>
