@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      Project[]
+  tasks         Task[]
 }
 
 model VerificationToken {
@@ -71,23 +72,12 @@ model Project {
 model Task {
   id        Int      @id @default(autoincrement())
   title     String
-  status    Status
-  priority  Priority
+  status    String
+  priority  String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectId String
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-enum Status {
-  TODO
-  IN_PROGRESS
-  DONE
-  CANCELED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
 }

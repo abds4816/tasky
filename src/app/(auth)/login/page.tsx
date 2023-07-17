@@ -1,12 +1,20 @@
 import { Icons } from "@/components/Icons";
 import SignInButton from "@/components/SignInButton";
 import { buttonVariants } from "@/components/ui/button";
+import { getCurrentUser } from "@/lib/session";
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-export default function login() {
+export default async function login() {
+  const user = await getCurrentUser();
+
+  if (user) {
+    redirect("/dashboard");
+  }
+
   return (
     <section className="relative grid h-full place-content-center">
       <Link

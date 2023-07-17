@@ -24,6 +24,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import { Pagination } from "./Pagination";
+import { Toolbar } from "./Toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,22 +54,7 @@ export function DataTable<TData, TValue>({
   });
   return (
     <>
-      <div className="flex items-center justify-between py-4">
-        <Input
-          type="search"
-          placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <AddEntityModal
-          entity="task"
-          form={<AddTaskForm />}
-          ButtonVariant="default"
-        />
-      </div>
+      <Toolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -118,24 +105,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination table={table} />
     </>
   );
 }

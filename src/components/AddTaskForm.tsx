@@ -12,11 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  TaskRequest,
-  TaskValidator,
-  taskDefaultValues,
-} from "@/lib/validators/task";
+import { TaskRequest, TaskValidator } from "@/lib/validators/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
@@ -37,8 +33,7 @@ const AddTaskForm = () => {
 
   const form = useForm<TaskRequest>({
     resolver: zodResolver(TaskValidator),
-    // defaultValues: taskDefaultValues,
-    mode: "onChange",
+    // mode: "onChange",
   });
 
   const { mutate: addTask, isLoading } = useMutation({
@@ -108,7 +103,6 @@ const AddTaskForm = () => {
                 disabled={isLoading}
                 onValueChange={field.onChange}
                 value={field.value}
-                defaultValue={field.value}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -116,10 +110,10 @@ const AddTaskForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="TODO">todo</SelectItem>
-                  <SelectItem value="IN_PROGRESS">in progress</SelectItem>
-                  <SelectItem value="DONE">done</SelectItem>
-                  <SelectItem value="CANCELED">canceled</SelectItem>
+                  <SelectItem value="todo">todo</SelectItem>
+                  <SelectItem value="in progress">in progress</SelectItem>
+                  <SelectItem value="done">done</SelectItem>
+                  <SelectItem value="canceled">canceled</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -145,9 +139,9 @@ const AddTaskForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="LOW">low</SelectItem>
-                  <SelectItem value="MEDIUM">medium</SelectItem>
-                  <SelectItem value="HIGH">high</SelectItem>
+                  <SelectItem value="low">low</SelectItem>
+                  <SelectItem value="medium">medium</SelectItem>
+                  <SelectItem value="high">high</SelectItem>
                 </SelectContent>
               </Select>
 
