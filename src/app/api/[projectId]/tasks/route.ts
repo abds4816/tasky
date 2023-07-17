@@ -36,6 +36,7 @@ export async function POST(
     await db.task.create({
       data: {
         title,
+        userId: user.id,
         status,
         priority,
         projectId: params.projectId,

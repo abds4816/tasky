@@ -3,13 +3,11 @@ import { getCurrentUser } from "@/lib/session";
 
 export async function getCompletedTasks() {
   const user = await getCurrentUser();
-  const projects = await db.project.findMany({
+  const tasks = await db.task.findMany({
     where: {
       userId: user?.id,
-    },
-    include: {
-      tasks: true,
+      status: "done",
     },
   });
-  return projects;
+  return tasks;
 }

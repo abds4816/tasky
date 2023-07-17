@@ -28,6 +28,7 @@ export async function DELETE(
     const task = await db.task.deleteMany({
       where: {
         id: params.taskId,
+        userId: user.id,
         projectId: params.projectId,
       },
     });
