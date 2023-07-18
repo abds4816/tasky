@@ -21,7 +21,7 @@ export default async function login() {
         href="/"
         className={cn(
           buttonVariants({ variant: "ghost", size: "lg" }),
-          "absolute left-4 top-4 md:left-8 md:top-20"
+          "absolute left-0 top-4 md:left-4 md:top-20"
         )}
       >
         <ChevronLeft className="w-4 h-4" />

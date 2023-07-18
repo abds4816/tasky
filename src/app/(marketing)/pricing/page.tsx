@@ -4,7 +4,7 @@ import React from "react";
 
 export default function pricing() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {pricingItems.map((item, index) => (
         <PricingCard key={index} {...item} />
       ))}
