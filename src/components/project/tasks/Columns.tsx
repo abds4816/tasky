@@ -78,7 +78,7 @@ export const columns: ColumnDef<Task>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <AlertDialog>
                 <AlertDialogTrigger>delete</AlertDialogTrigger>
                 <AlertDialogContent>

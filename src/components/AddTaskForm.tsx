@@ -99,7 +99,11 @@ const AddTaskForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <Select disabled={isLoading} {...field}>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="select task status" />
@@ -125,8 +129,8 @@ const AddTaskForm = () => {
               <FormLabel>Priority</FormLabel>
               <Select
                 disabled={isLoading}
-                {...field}
-                defaultValue={field.value}
+                onValueChange={field.onChange}
+                value={field.value}
               >
                 <FormControl>
                   <SelectTrigger>
