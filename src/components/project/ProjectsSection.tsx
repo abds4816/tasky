@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Project } from "@prisma/client";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCard from "@/components/project/ProjectCard";
 
 interface ProjectsSectionProps {
   projects: Project[];

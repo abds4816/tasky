@@ -9,10 +9,10 @@ import {
   EmptyStateTitle,
 } from "@/components/ui/empty-state";
 import { LayoutList } from "lucide-react";
-import AddEntityModal from "../AddEntityModal";
-import AddTaskForm from "../AddTaskForm";
+import AddEntityModal from "@/components/AddEntityModal";
+import AddTaskForm from "@/components/AddTaskForm";
 import { DataTable } from "@/components/project/tasks/DataTable";
-import { columns } from "./tasks/Columns";
+import { columns } from "@/components/project/tasks/Columns";
 
 interface TasksTableProps {
   tasks: Task[] | undefined;

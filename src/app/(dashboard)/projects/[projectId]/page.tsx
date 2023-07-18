@@ -1,8 +1,8 @@
 import { getProjectById } from "@/actions/getProjectById";
 import PageHeader from "@/components/PageHeader";
-import ProjectOverview from "@/components/project/ProjectOverview";
-import ProjectSettings from "@/components/project/ProjectSettings";
-import TasksTable from "@/components/project/TasksTable";
+import ProjectOverview from "@/components/project/containers/ProjectOverview";
+import ProjectSettings from "@/components/project/containers/ProjectSettings";
+import TasksTable from "@/components/project/containers/TasksTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { notFound } from "next/navigation";
 import { FC, Suspense } from "react";

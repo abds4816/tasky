@@ -1,9 +1,8 @@
 import { getProjects } from "@/actions/getProjects";
 import AddEntityModal from "@/components/AddEntityModal";
-import AddProjectForm from "@/components/AddProjectForm";
+import AddProjectForm from "@/components/project/AddProjectForm";
 import PageHeader from "@/components/PageHeader";
-import ProjectCard from "@/components/ProjectCard";
-import ProjectsSection from "@/components/ProjectsSection";
+import ProjectsSection from "@/components/project/ProjectsSection";
 import {
   EmptyState,
   EmptyStateActions,

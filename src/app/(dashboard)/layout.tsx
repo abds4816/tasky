@@ -10,7 +10,7 @@ export default function dashboardLayout({
   return (
     <>
       <Navbar items={dashboardLinks} />
-      <main className="container pt-12">{children}</main>
+      <main className="container pt-12 pb-8">{children}</main>
     </>
   );
 }
