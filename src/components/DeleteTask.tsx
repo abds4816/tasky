@@ -35,16 +35,15 @@ const DeleteTask: FC<DeleteTaskProps> = ({ taskId }) => {
     },
     onSuccess: () => {
       router.refresh();
-      router.push(`/projects/${params.projectId}`);
       return toast({
-        title: "task deleted.",
+        title: "Task deleted.",
         description: "Task was deleted successfully!",
         duration: 5000,
       });
     },
   });
   return (
-    <AlertDialogAction>
+    <AlertDialogAction asChild>
       <Button
         variant="destructive"
         isLoading={isLoading}

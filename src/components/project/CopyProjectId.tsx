@@ -18,7 +18,7 @@ const CopyProjectId: FC<CopyProjectIdProps> = ({ id }) => {
     navigator.clipboard.writeText(id!);
     setTimeout(() => {
       setIsClicked(false);
-    }, 1000);
+    }, 1500);
   }
 
   return (

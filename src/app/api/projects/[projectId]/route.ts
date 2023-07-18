@@ -15,22 +15,20 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
-    const { name, description } = UpdateProjectValidator.parse(body);
+    const { name } = UpdateProjectValidator.parse(body);
     const user = await getCurrentUser();
     if (!user) {
       return new Response("Unauthorized", { status: 401 });
     }
-    const existingProject = await db.project.update({
+
+    await db.project.update({
       where: {
         id: params.projectId,
       },
       data: {
         name,
-        description,
       },
     });
-
-    return existingProject;
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 });

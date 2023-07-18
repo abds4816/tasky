@@ -8,8 +8,7 @@ export const ProjectValidator = z.object({
 export type ProjectRequest = z.infer<typeof ProjectValidator>;
 
 export const UpdateProjectValidator = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
+  name: z.string().min(3),
 });
 
 export type UpdateProjectRequest = z.infer<typeof UpdateProjectValidator>;

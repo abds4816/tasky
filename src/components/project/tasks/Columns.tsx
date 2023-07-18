@@ -48,10 +48,6 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: "Task Id",
-  },
-  {
     accessorKey: "title",
     header: ({ column }) => <ColumnHeader column={column} title="Title" />,
   },
@@ -78,7 +74,7 @@ export const columns: ColumnDef<Task>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <AlertDialog>
                 <AlertDialogTrigger>delete</AlertDialogTrigger>
                 <AlertDialogContent>

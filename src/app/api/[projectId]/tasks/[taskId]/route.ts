@@ -9,11 +9,12 @@ export async function DELETE(
   }: {
     params: {
       projectId: string;
-      taskId: number;
     };
   }
 ) {
   try {
+    const body = await req.json();
+    const { id } = body;
     const user = await getCurrentUser();
     if (!user) {
       return new Response("Unauthorized", { status: 403 });
@@ -21,15 +22,13 @@ export async function DELETE(
     if (!params.projectId) {
       return new Response("projectId is required!", { status: 400 });
     }
-    if (!params.taskId) {
+    if (id) {
       return new Response("taskId is required!", { status: 400 });
     }
 
-    const task = await db.task.deleteMany({
+    const task = await db.task.delete({
       where: {
-        id: params.taskId,
-        userId: user.id,
-        projectId: params.projectId,
+        id,
       },
     });
 

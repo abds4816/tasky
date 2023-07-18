@@ -18,7 +18,7 @@ const ProjectSettings: FC<ProjectSettingsProps> = ({ project }) => {
         description="Used to identify your Project on the projects page."
         className="mt-8"
       >
-        <UpdateProjectName project={project} />
+        <UpdateProjectName id={project?.id} name={project?.name} />
       </SettingsCard>
       <SettingsCard
         title="project ID"
