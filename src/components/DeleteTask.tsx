@@ -17,13 +17,11 @@ const DeleteTask: FC<DeleteTaskProps> = ({ taskId }) => {
   const params = useParams();
   const { toast } = useToast();
   const { mutate: deleteTask, isLoading } = useMutation({
-    mutationFn: async (id: number | undefined) => {
-      if (id) {
-        const { data } = await axios.delete(
-          `/api/${params.projectId}/tasks/${id}`
-        );
-        return data;
-      }
+    mutationFn: async (id: number) => {
+      const { data } = await axios.delete(
+        `/api/${params.projectId}/tasks/${id}`
+      );
+      return data;
     },
     onError: () => {
       return toast({
