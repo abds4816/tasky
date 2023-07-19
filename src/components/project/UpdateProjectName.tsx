@@ -68,7 +68,7 @@ const UpdateProjectName: FC<UpdateProjectNameProps> = ({ id, name }) => {
   return (
     <form onSubmit={handleSubmit((e) => UpdateName(e))}>
       <CardContent>
-        <Input className="w-80" {...register("name")} />
+        <Input className="w-60 md:w-80" {...register("name")} />
         {errors.name && (
           <p className="pt-2 text-xs text-destructive">{errors.name.message}</p>
         )}
