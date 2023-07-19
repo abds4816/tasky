@@ -24,7 +24,7 @@ const CopyProjectId: FC<CopyProjectIdProps> = ({ id }) => {
   return (
     <>
       <CardContent>
-        <Input value={id} className="w-80" />
+        <Input value={id} className="w-48 md:w-80" />
       </CardContent>
       <Separator />
       <CardFooter className="flex justify-end py-2">
