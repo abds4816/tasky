@@ -1,7 +1,7 @@
 import { db } from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 
-export async function getCompletedTasks(projectId: string | undefined) {
+export async function getCompletedTasks(projectId?: string) {
   const user = await getCurrentUser();
   if (projectId) {
     const tasks = await db.task.findMany({
