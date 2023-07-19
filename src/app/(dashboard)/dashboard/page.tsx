@@ -19,6 +19,7 @@ export default async function dashboard() {
           value={projects.length}
           percentageChange={100}
           description="test desc"
+          unit="projects"
         />
         <StatisticCard
           title="Completed Tasks"
@@ -26,6 +27,7 @@ export default async function dashboard() {
           value={completedTasks.length}
           percentageChange={100}
           description="test desc"
+          unit="tasks"
         />
       </section>
       {/* staistics cards */}

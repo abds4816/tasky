@@ -11,7 +11,6 @@ import {
   EmptyStateIcon,
   EmptyStateTitle,
 } from "@/components/ui/empty-state";
-import { Input } from "@/components/ui/input";
 import { Folder } from "lucide-react";
 import React from "react";
 

@@ -1,4 +1,5 @@
 import { getProjectById } from "@/actions/getProjectById";
+import Loader from "@/components/Loader";
 import PageHeader from "@/components/PageHeader";
 import ProjectOverview from "@/components/project/containers/ProjectOverview";
 import ProjectSettings from "@/components/project/containers/ProjectSettings";
@@ -31,17 +32,17 @@ const page: FC<ProjectPageProps> = async ({ params }) => {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
-          <Suspense fallback="loading...">
-            <ProjectOverview project={project} />
+          <Suspense fallback={<Loader />}>
+            <ProjectOverview project={project} tasks={project.tasks} />
           </Suspense>
         </TabsContent>
         <TabsContent value="tasks">
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <TasksTable tasks={project?.tasks.reverse()} />
           </Suspense>
         </TabsContent>
         <TabsContent value="settings">
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <ProjectSettings project={project} />
           </Suspense>
         </TabsContent>

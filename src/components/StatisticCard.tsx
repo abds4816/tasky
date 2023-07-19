@@ -9,6 +9,7 @@ const StatisticCard: FC<StatisticCardProps> = ({
   icon,
   value,
   description,
+  unit,
 }) => {
   return (
     <Card>
@@ -19,7 +20,12 @@ const StatisticCard: FC<StatisticCardProps> = ({
         <div className="h-4 w-4 text-muted-foreground">{icon}</div>
       </CardHeader>
       <CardContent>
-        <h4 className="text-2xl font-bold">{value}</h4>
+        <h4 className="text-2xl font-bold">
+          {value > 0 ? value : 0}{" "}
+          <small className="text-sm font-semibold text-muted-foreground">
+            {unit}
+          </small>
+        </h4>
         <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
     </Card>

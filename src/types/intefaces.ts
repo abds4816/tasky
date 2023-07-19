@@ -8,9 +8,10 @@ export interface INavLink {
 export interface IStatistic {
   title: string;
   icon: ReactNode;
-  value: number | string;
+  value: number;
   percentageChange: number | string;
   description: string;
+  unit: string;
 }
 
 export interface Entity {

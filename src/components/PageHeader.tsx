@@ -13,7 +13,7 @@ const PageHeader: FC<PageHeaderProps> = ({ title, description, children }) => {
         <h3 className="text-3xl font-bold tracking-tight capitalize">
           {title}
         </h3>
-        <p className="text-muted-foreground">{description}</p>
+        {description && <p className="text-muted-foreground">{description}</p>}
       </div>
       {children}
     </section>
