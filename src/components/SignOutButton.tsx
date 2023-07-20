@@ -7,9 +7,8 @@ import { LogOut } from "lucide-react";
 
 const SignOutButton = () => {
   return (
-    <DropdownMenuItem onClick={() => signOut()}>
-      <LogOut className="w-4 h-4 mr-2" />
-      log out
+    <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+      Sign out
     </DropdownMenuItem>
   );
 };

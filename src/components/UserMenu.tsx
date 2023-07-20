@@ -11,7 +11,6 @@ import { User } from "next-auth";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import SignOutButton from "./SignOutButton";
 import Link from "next/link";
-import { Folders, LayoutDashboard, Settings } from "lucide-react";
 
 interface UserMenuProps {
   user: User;
@@ -34,22 +33,16 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/dashboard">
-          <DropdownMenuItem>
-            <LayoutDashboard className="w-4 h-4 mr-2" />
-            Dashboard
-          </DropdownMenuItem>
+          <DropdownMenuItem>Dashboard</DropdownMenuItem>
         </Link>
         <Link href="/projects">
-          <DropdownMenuItem>
-            <Folders className="w-4 h-4 mr-2" />
-            projects
-          </DropdownMenuItem>
+          <DropdownMenuItem>Projects</DropdownMenuItem>
         </Link>
         <Link href="/settings">
-          <DropdownMenuItem>
-            <Settings className="w-4 h-4 mr-2" />
-            settings
-          </DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
+        </Link>
+        <Link href="/billing">
+          <DropdownMenuItem>Billing</DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
         <SignOutButton />
