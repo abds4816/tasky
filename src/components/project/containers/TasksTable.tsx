@@ -13,12 +13,14 @@ import AddEntityModal from "@/components/AddEntityModal";
 import AddTaskForm from "@/components/AddTaskForm";
 import { DataTable } from "@/components/project/tasks/DataTable";
 import { columns } from "@/components/project/tasks/Columns";
+import { getTasks } from "@/actions/getTasks";
 
 interface TasksTableProps {
-  tasks: Task[] | undefined;
+  projectId: string | undefined;
 }
 
-const TasksTable: FC<TasksTableProps> = async ({ tasks }) => {
+const TasksTable: FC<TasksTableProps> = async ({ projectId }) => {
+  const tasks = await getTasks(projectId!);
   if (!tasks?.length) {
     return (
       <EmptyState>

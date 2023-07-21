@@ -37,10 +37,12 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
   const { toast } = useToast();
   const { mutate: deleteTask, isLoading } = useMutation({
     mutationFn: async (id: number) => {
-      const { data } = await axios.delete(
-        `/api/${params.projectId}/tasks/${id}`
-      );
-      return data;
+      if (id) {
+        const { data } = await axios.delete(
+          `/api/${params.projectId}/tasks/${id}`
+        );
+        return data;
+      }
     },
     onError: () => {
       setShowDeleteAlert(false);

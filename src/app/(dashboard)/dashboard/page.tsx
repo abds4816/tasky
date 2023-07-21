@@ -1,9 +1,17 @@
 import { getCompletedTasks } from "@/actions/getCompletedTasks";
 import { getProjects } from "@/actions/getProjects";
+("@/components/ChartCard");
 import PageHeader from "@/components/PageHeader";
 import StatisticCard from "@/components/StatisticCard";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Check, Folders } from "lucide-react";
+import { data } from "@/constants/tasks-classment";
+import DashboardOverview from "@/components/charts/DashboardOverview";
 
 export const metadata = {
   title: "Dashboard | Tasky",
@@ -37,17 +45,14 @@ export default async function dashboard() {
       {/* staistics cards */}
 
       <section className="grid grid-cols-12 gap-4">
-        <Card className="col-span-12 lg:col-span-7">
-          <CardTitle>Recent news</CardTitle>
-          <CardDescription>
-            Your teams complete 43 tasks this week
-          </CardDescription>
-        </Card>
+        <DashboardOverview data={data} />
         <Card className="col-span-12 lg:col-span-5">
-          <CardTitle>Recent news</CardTitle>
-          <CardDescription>
-            Your teams complete 43 tasks this week
-          </CardDescription>
+          <CardHeader>
+            <CardTitle>Recent news</CardTitle>
+            <CardDescription>
+              Your teams complete 43 tasks this week
+            </CardDescription>
+          </CardHeader>
         </Card>
       </section>
     </div>

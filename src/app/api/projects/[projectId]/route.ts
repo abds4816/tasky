@@ -60,10 +60,9 @@ export async function DELETE(
       return new Response("projectId is required!", { status: 400 });
     }
 
-    const project = await db.project.deleteMany({
+    const project = await db.project.delete({
       where: {
         id: params.projectId,
-        userId: user.id,
       },
     });
 
