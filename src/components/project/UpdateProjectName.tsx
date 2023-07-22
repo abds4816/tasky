@@ -1,7 +1,6 @@
 "use client";
 
-import { Project } from "@prisma/client";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -16,6 +15,13 @@ import {
   UpdateProjectValidator,
 } from "@/lib/validators/project";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 
 interface UpdateProjectNameProps {
   id: string | undefined;
@@ -26,28 +32,36 @@ const UpdateProjectName: FC<UpdateProjectNameProps> = ({ id, name }) => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<UpdateProjectRequest>({
+  const form = useForm<UpdateProjectRequest>({
     resolver: zodResolver(UpdateProjectValidator),
     defaultValues: {
-      name: name || "",
+      newName: name || "",
     },
   });
 
   const { mutate: UpdateName, isLoading } = useMutation({
-    mutationFn: async ({ name }: UpdateProjectRequest) => {
-      const payload: UpdateProjectRequest = { name };
-      if (name) {
-        if (name?.length < 3) {
-          const { data } = await axios.patch(`/api/projects/${id}`, payload);
-          return data;
-        }
+    mutationFn: async ({ newName }: UpdateProjectRequest) => {
+      if (newName !== name) {
+        const payload: UpdateProjectRequest = { newName };
+        const { data } = await axios.patch(`/api/projects/${id}`, payload);
+        return data;
+      } else {
+        return toast({
+          description: "you need to enter a different name for this project.",
+          duration: 5000,
+        });
       }
     },
     onError: () => {
+      router.push(`/projects/${id}`);
+      router.refresh();
+      return toast({
+        title: "Project name updated.",
+        description: "Project was updated successfully!",
+        duration: 5000,
+      });
+    },
+    onSuccess: () => {
       return toast({
         title: "Something went wrong.",
         description:
@@ -56,30 +70,38 @@ const UpdateProjectName: FC<UpdateProjectNameProps> = ({ id, name }) => {
         duration: 5000,
       });
     },
-    onSuccess: () => {
-      toast({
-        title: "Project name updated.",
-        description: "Project was updated successfully!",
-        duration: 5000,
-      });
-      router.refresh();
-    },
   });
   return (
-    <form onSubmit={handleSubmit((e) => UpdateName(e))}>
-      <CardContent>
-        <Input className="w-full md:w-80" {...register("name")} />
-        {errors.name && (
-          <p className="pt-2 text-xs text-destructive">{errors.name.message}</p>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(() =>
+          UpdateName({
+            newName: form.getValues("newName"),
+          })
         )}
-      </CardContent>
-      <Separator />
-      <CardFooter className="flex justify-end py-2">
-        <Button type="submit" isLoading={isLoading}>
-          save
-        </Button>
-      </CardFooter>
-    </form>
+      >
+        <CardContent>
+          <FormField
+            control={form.control}
+            name="newName"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input className="w-full md:w-80" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </CardContent>
+        <Separator />
+        <CardFooter className="flex justify-end py-2">
+          <Button type="submit" isLoading={isLoading}>
+            save
+          </Button>
+        </CardFooter>
+      </form>
+    </Form>
   );
 };
 

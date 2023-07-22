@@ -8,7 +8,9 @@ export const ProjectValidator = z.object({
 export type ProjectRequest = z.infer<typeof ProjectValidator>;
 
 export const UpdateProjectValidator = z.object({
-  name: z.string().min(3),
+  newName: z
+    .string({ required_error: "name is required" })
+    .min(3, "project name must be at least 3 charachters"),
 });
 
 export type UpdateProjectRequest = z.infer<typeof UpdateProjectValidator>;

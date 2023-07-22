@@ -15,18 +15,22 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
-    const { name } = UpdateProjectValidator.parse(body);
+    const { newName } = UpdateProjectValidator.parse(body);
     const user = await getCurrentUser();
     if (!user) {
       return new Response("Unauthorized", { status: 401 });
     }
+    if (!newName) {
+      return new Response("name is required", { status: 403 });
+    }
 
-    await db.project.update({
+    await db.project.updateMany({
       where: {
         id: params.projectId,
+        userId: user.id,
       },
       data: {
-        name,
+        name: newName,
       },
     });
   } catch (error) {
