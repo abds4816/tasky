@@ -1,11 +1,5 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -16,36 +10,40 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { FC, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
-interface DeleteProjectProps {
-  projectId: string | undefined;
+interface DeleteTeamProps {
+  teamId: string;
 }
 
-const DeleteProject: FC<DeleteProjectProps> = ({ projectId }) => {
+const DeleteTeam: FC<DeleteTeamProps> = ({ teamId }) => {
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
   const { toast } = useToast();
   const router = useRouter();
 
-  const { mutate: deleteProject, isLoading } = useMutation({
+  const { mutate: deleteTeam, isLoading } = useMutation({
     mutationFn: async (id: string | undefined) => {
-      if (id) {
-        const { data } = await axios.delete(`/api/projects/${id}`);
-        return data;
-      }
+      const { data } = await axios.delete(`/api/teams/${id}`);
+      return data;
     },
     onError: () => {
       router.refresh();
-      router.push("/projects");
+      router.push("/teams");
       return toast({
-        title: "project deleted.",
-        description: "Project was deleted successfully!",
+        title: "team deleted.",
+        description: "Team was deleted successfully!",
         duration: 5000,
       });
     },
     onSuccess: () => {
       return toast({
         title: "Something went wrong.",
-        description: "Project wasn't deleted successfully. Please try again.",
+        description: "Team wasn't deleted successfully. Please try again.",
         variant: "destructive",
         duration: 5000,
       });
@@ -71,7 +69,7 @@ const DeleteProject: FC<DeleteProjectProps> = ({ projectId }) => {
             variant="destructive"
             isLoading={isLoading}
             onClick={() => {
-              deleteProject(projectId);
+              deleteTeam(teamId);
             }}
           >
             delete
@@ -82,4 +80,4 @@ const DeleteProject: FC<DeleteProjectProps> = ({ projectId }) => {
   );
 };
 
-export default DeleteProject;
+export default DeleteTeam;

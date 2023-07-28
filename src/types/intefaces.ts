@@ -15,7 +15,7 @@ export interface IStatistic {
 }
 
 export interface Entity {
-  entity: "project" | "task";
+  entity: "project" | "task" | "team" | "member";
   form: ReactNode;
 }
 

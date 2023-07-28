@@ -25,6 +25,10 @@ export const dashboardLinks: INavLink[] = [
     href: "/projects",
   },
   {
+    title: "teams",
+    href: "/teams",
+  },
+  {
     title: "billing",
     href: "/billing",
   },

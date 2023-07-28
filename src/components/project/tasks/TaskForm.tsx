@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -25,8 +25,21 @@ import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
+import { Task, Team, TeamMember } from "@prisma/client";
 
-const AddTaskForm = () => {
+type TaskFormProps = {
+  teamMembers: TeamMember[] | undefined;
+} & (
+  | {
+      mode: "create";
+    }
+  | {
+      mode: "update";
+      task: Task | undefined;
+    }
+);
+
+const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -36,14 +49,23 @@ const AddTaskForm = () => {
     mode: "onChange",
   });
 
+  // add task
   const { mutate: addTask, isLoading } = useMutation({
     mutationFn: async ({ title, status, priority }: TaskRequest) => {
       const payload: TaskRequest = { title, status, priority };
-      const { data } = await axios.post(
-        `/api/${params.projectId}/tasks`,
-        payload
-      );
-      return data;
+      if (props.mode === "create") {
+        const { data } = await axios.post(
+          `/api/${params.projectId}/tasks`,
+          payload
+        );
+        return data;
+      } else {
+        const { data } = await axios.patch(
+          `/api/${params.projectId}/tasks/${props.task?.id}`,
+          payload
+        );
+        return data;
+      }
     },
     onError: () => {
       return toast({
@@ -86,6 +108,9 @@ const AddTaskForm = () => {
                   type="text"
                   disabled={isLoading}
                   placeholder="enter task title..."
+                  defaultValue={
+                    props.mode === "update" ? props.task?.title : ""
+                  }
                   {...field}
                 />
               </FormControl>
@@ -102,6 +127,7 @@ const AddTaskForm = () => {
               <Select
                 disabled={isLoading}
                 onValueChange={field.onChange}
+                defaultValue={props.mode === "update" ? props.task?.status : ""}
                 value={field.value}
               >
                 <FormControl>
@@ -130,6 +156,9 @@ const AddTaskForm = () => {
               <Select
                 disabled={isLoading}
                 onValueChange={field.onChange}
+                defaultValue={
+                  props.mode === "update" ? props.task?.priority : ""
+                }
                 value={field.value}
               >
                 <FormControl>
@@ -148,9 +177,43 @@ const AddTaskForm = () => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="assignee"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>assign to</FormLabel>
+              <Select
+                disabled={isLoading || !teamMembers?.length}
+                onValueChange={field.onChange}
+                defaultValue={
+                  props.mode === "update" ? props.task?.assignee! : ""
+                }
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="assign task to member" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {teamMembers?.map((member) => (
+                    <SelectItem key={member.id} value={member.id}>
+                      {member.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {!teamMembers?.length && (
+                <FormMessage>no members in this team!</FormMessage>
+              )}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex justify-end">
           <Button type="submit" isLoading={isLoading}>
-            Submit
+            {props.mode === "update" ? "Update" : "Submit"}
           </Button>
         </div>
       </form>
@@ -158,4 +221,4 @@ const AddTaskForm = () => {
   );
 };
 
-export default AddTaskForm;
+export default TaskForm;

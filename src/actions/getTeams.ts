@@ -1,23 +1,20 @@
 import { db } from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 
-export async function getTasks(projectId: string) {
+export async function getTeams() {
   const user = await getCurrentUser();
   if (user) {
-    const tasks = await db.task.findMany({
+    const teams = await db.team.findMany({
       where: {
-        projectId: projectId,
         userId: user.id,
+      },
+      include: {
+        members: true,
       },
       orderBy: {
         createdAt: "desc",
       },
-      include: {
-        assignedTo: true,
-      },
     });
-    return tasks;
-  } else {
-    return null;
+    return teams;
   }
 }

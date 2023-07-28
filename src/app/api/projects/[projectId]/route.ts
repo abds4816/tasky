@@ -15,10 +15,22 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
-    const { newName } = UpdateProjectValidator.parse(body);
+    const { newName, isCompleted } = UpdateProjectValidator.parse(body);
     const user = await getCurrentUser();
     if (!user) {
       return new Response("Unauthorized", { status: 401 });
+    }
+    if (isCompleted?.valueOf) {
+      await db.project.updateMany({
+        where: {
+          id: params.projectId,
+          userId: user.id,
+        },
+        data: {
+          isCompleted,
+        },
+      });
+      return new Response("ok");
     }
     if (!newName) {
       return new Response("name is required", { status: 403 });
@@ -33,6 +45,7 @@ export async function PATCH(
         name: newName,
       },
     });
+    return new Response("ok");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 });

@@ -1,7 +1,7 @@
 "use client";
 
 import AddEntityModal from "@/components/AddEntityModal";
-import AddTaskForm from "@/components/AddTaskForm";
+import AddTaskForm from "@/components/project/tasks/TaskForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {

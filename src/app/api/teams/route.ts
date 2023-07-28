@@ -1,12 +1,12 @@
 import { db } from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
-import { ProjectValidator } from "@/lib/validators/project";
+import { TeamValidator } from "@/lib/validators/team";
 import { z } from "zod";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, description, teamId } = ProjectValidator.parse(body);
+    const { name } = TeamValidator.parse(body);
     const user = await getCurrentUser();
 
     if (!user) {
@@ -16,16 +16,11 @@ export async function POST(req: Request) {
     if (!name) {
       return new Response("name is required", { status: 403 });
     }
-    if (!teamId) {
-      return new Response("team ID is required", { status: 403 });
-    }
 
-    await db.project.create({
+    await db.team.create({
       data: {
-        userId: user.id,
         name,
-        description,
-        teamId,
+        userId: user.id,
       },
     });
     return new Response("ok");

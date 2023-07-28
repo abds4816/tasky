@@ -5,13 +5,17 @@ import PageHeader from "@/components/PageHeader";
 import StatisticCard from "@/components/StatisticCard";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check, Folders } from "lucide-react";
+import { Check, Folders, Users } from "lucide-react";
 import { data } from "@/constants/tasks-classment";
 import DashboardOverview from "@/components/charts/DashboardOverview";
+import { getTeams } from "@/actions/getTeams";
+import { getMembers } from "@/actions/getMembers";
+import { User } from "lucide-react";
 
 export const metadata = {
   title: "Dashboard | Tasky",
@@ -20,6 +24,8 @@ export const metadata = {
 export default async function dashboard() {
   const projects = await getProjects();
   const completedTasks = await getCompletedTasks();
+  const teams = await getTeams();
+  const members = await getMembers();
   return (
     <div className="flex flex-col gap-y-6 md:gap-y-8">
       <PageHeader title="dashboard" />
@@ -41,6 +47,22 @@ export default async function dashboard() {
           description="test desc"
           unit="tasks"
         />
+        <StatisticCard
+          title="Total Teams"
+          icon={<Users />}
+          value={teams?.length!}
+          percentageChange={100}
+          description="test desc"
+          unit="teams"
+        />
+        <StatisticCard
+          title="Total Members"
+          icon={<User />}
+          value={members?.length!}
+          percentageChange={100}
+          description="test desc"
+          unit="members"
+        />
       </section>
       {/* staistics cards */}
 
@@ -53,6 +75,21 @@ export default async function dashboard() {
               Your teams complete 43 tasks this week
             </CardDescription>
           </CardHeader>
+          <CardContent>
+            {members?.length ? (
+              <ul className="flex flex-col gap-2">
+                {members?.map((member, index) => (
+                  <li key={index}>{member.name}</li>
+                ))}
+              </ul>
+            ) : (
+              <div className="h-60 grid place-content-center">
+                <p className="text-muted-foreground text-sm">
+                  no members here!
+                </p>
+              </div>
+            )}
+          </CardContent>
         </Card>
       </section>
     </div>

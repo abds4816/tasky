@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   title: "Tasky",
@@ -16,7 +17,9 @@ export default function Home() {
         The king, seeing how much happier his subjects were, realized the error
         of his ways and repealed the joke tax.
       </p>
-      <Button size="lg">get started</Button>
+      <Link href="/login" className={buttonVariants({ size: "lg" })}>
+        get started
+      </Link>
     </section>
   );
 }

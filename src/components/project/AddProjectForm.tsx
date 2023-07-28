@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import {
   Form,
   FormControl,
@@ -18,8 +18,20 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Team } from "@prisma/client";
 
-const AddProjectForm = () => {
+interface AddProjectFormProps {
+  teams: Team[];
+}
+
+const AddProjectForm: FC<AddProjectFormProps> = ({ teams }) => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -28,8 +40,8 @@ const AddProjectForm = () => {
   });
 
   const { mutate: addProject, isLoading } = useMutation({
-    mutationFn: async ({ name, description }: ProjectRequest) => {
-      const payload: ProjectRequest = { name, description };
+    mutationFn: async ({ name, description, teamId }: ProjectRequest) => {
+      const payload: ProjectRequest = { name, description, teamId };
 
       const { data } = await axios.post("/api/projects", payload);
       return data;
@@ -59,6 +71,7 @@ const AddProjectForm = () => {
           addProject({
             name: form.getValues("name"),
             description: form.getValues("description"),
+            teamId: form.getValues("teamId"),
           })
         )}
         className="space-y-6"
@@ -98,6 +111,35 @@ const AddProjectForm = () => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="teamId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Team</FormLabel>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select task status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {teams.map((team) => (
+                    <SelectItem key={team.id} value={team.id}>
+                      {team.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
               <FormMessage />
             </FormItem>
           )}

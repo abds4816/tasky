@@ -1,4 +1,4 @@
-import { Project } from "@prisma/client";
+import { Team } from "@prisma/client";
 import { FC } from "react";
 import {
   Card,
@@ -10,22 +10,25 @@ import {
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 
-interface ProjectCardProps extends Project {}
+interface TeamCardProps extends Team {
+  membersCount: number;
+}
 
-const ProjectCard: FC<ProjectCardProps> = ({
+const TeamCard: FC<TeamCardProps> = ({
   id,
   name,
-  description,
-  isCompleted,
   createdAt,
   updatedAt,
+  membersCount,
 }) => {
   return (
-    <Link href={`/projects/${id}`}>
+    <Link href={`/teams/${id}`}>
       <Card className="h-full">
         <CardHeader>
           <CardTitle>{name}</CardTitle>
-          <CardDescription>{`${description} ${isCompleted}`}</CardDescription>
+          <CardDescription>
+            This team contains {membersCount} member(s)
+          </CardDescription>
         </CardHeader>
         <CardFooter>
           <p>{formatDate(createdAt.toLocaleString())}</p>
@@ -35,4 +38,4 @@ const ProjectCard: FC<ProjectCardProps> = ({
   );
 };
 
-export default ProjectCard;
+export default TeamCard;

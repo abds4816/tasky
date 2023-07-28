@@ -38,6 +38,9 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
         <Link href="/projects">
           <DropdownMenuItem>Projects</DropdownMenuItem>
         </Link>
+        <Link href="/teams">
+          <DropdownMenuItem>teams</DropdownMenuItem>
+        </Link>
         <Link href="/billing">
           <DropdownMenuItem>Billing</DropdownMenuItem>
         </Link>

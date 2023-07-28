@@ -25,7 +25,7 @@ const page: FC<ProjectPageProps> = async ({ params }) => {
   }
   return (
     <ProjectLayout project={project} activeTab="tasks">
-      <TasksTable projectId={project.id} />
+      <TasksTable project={project} />
     </ProjectLayout>
   );
 };

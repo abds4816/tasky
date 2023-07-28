@@ -19,7 +19,7 @@ const ProjectLayout: FC<ProjectLayoutProps> = ({
     <>
       <PageHeader title={project?.name} description={project?.description} />
       <Tabs defaultValue={activeTab}>
-        <TabsList className="grid w-full md:w-80 grid-cols-3 mb-4">
+        <TabsList className="grid md:w-80 grid-cols-3 mb-4">
           <Link href={`/projects/${project?.id}`} className="w-full">
             <TabsTrigger value="overview">Overview</TabsTrigger>
           </Link>

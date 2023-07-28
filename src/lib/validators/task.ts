@@ -14,6 +14,10 @@ export const TaskValidator = z.object({
       required_error: "Please select a priority",
     })
     .min(3),
+  assignee: z
+    .string()
+    .min(3, "task title must be at least 3 characters")
+    .optional(),
 });
 
 export type TaskRequest = z.infer<typeof TaskValidator>;

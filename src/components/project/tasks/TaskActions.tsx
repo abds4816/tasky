@@ -25,6 +25,13 @@ import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import TaskForm from "@/components/project/tasks/TaskForm";
 
 interface TaskActionsProps {
   task: Task;
@@ -32,6 +39,7 @@ interface TaskActionsProps {
 
 const TaskActions: FC<TaskActionsProps> = ({ task }) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
+  const [openUpdateTask, setOpenUpdateTask] = useState<boolean>(false);
   const router = useRouter();
   const params = useParams();
   const { toast } = useToast();
@@ -73,7 +81,9 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setOpenUpdateTask(true)}>
+            Edit
+          </DropdownMenuItem>
           <DropdownMenuItem>Make a copy</DropdownMenuItem>
           <DropdownMenuItem>Favorite</DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -107,6 +117,14 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Dialog open={openUpdateTask} onOpenChange={setOpenUpdateTask}>
+        <DialogContent>
+          <DialogHeader className="font-semibold capitalize text-xl">
+            Update Task
+          </DialogHeader>
+          <TaskForm mode="update" task={task} />
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

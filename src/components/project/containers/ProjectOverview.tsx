@@ -78,7 +78,7 @@ const ProjectOverview: FC<ProjectOverviewProps> = async ({
       </section>
       <section className="grid grid-cols-12 gap-4">
         <p className="col-span-12 lg:col-span-8">hi!</p>
-        <ProjectTasksClassment data={data} />
+        <ProjectTasksClassment data={data} tasksCount={tasks?.length!} />
       </section>
     </section>
   );

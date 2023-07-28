@@ -9,7 +9,7 @@ export async function POST(
 ) {
   try {
     const body = await req.json();
-    const { title, status, priority } = TaskValidator.parse(body);
+    const { title, status, priority, assignee } = TaskValidator.parse(body);
     const user = await getCurrentUser();
     if (!user) {
       return new Response("Unauthorized", { status: 401 });
@@ -40,6 +40,7 @@ export async function POST(
         status,
         priority,
         projectId: params.projectId,
+        assignee,
       },
     });
     return new Response("ok");

@@ -5,7 +5,7 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AddEntityModal from "@/components/AddEntityModal";
-import AddTaskForm from "@/components/AddTaskForm";
+import AddTaskForm from "@/components/project/tasks/TaskForm";
 import { ViewOptions } from "./ViewOptions";
 // import { DataTableViewOptions } from "@/app/examples/tasks/components/data-table-view-options"
 
@@ -31,7 +31,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
         <ViewOptions table={table} />
         <AddEntityModal
           entity="task"
-          form={<AddTaskForm />}
+          form={<AddTaskForm mode="create" />}
           ButtonVariant="default"
         />
       </div>

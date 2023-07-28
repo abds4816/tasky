@@ -1,4 +1,3 @@
-import { Task } from "@prisma/client";
 import { FC } from "react";
 import {
   EmptyState,
@@ -10,17 +9,20 @@ import {
 } from "@/components/ui/empty-state";
 import { LayoutList } from "lucide-react";
 import AddEntityModal from "@/components/AddEntityModal";
-import AddTaskForm from "@/components/AddTaskForm";
 import { DataTable } from "@/components/project/tasks/DataTable";
 import { columns } from "@/components/project/tasks/Columns";
 import { getTasks } from "@/actions/getTasks";
+import TaskForm from "@/components/project/tasks/TaskForm";
+import { Project } from "@prisma/client";
+import { getMembers } from "@/actions/getMembers";
 
 interface TasksTableProps {
-  projectId: string | undefined;
+  project: Project | undefined;
 }
 
-const TasksTable: FC<TasksTableProps> = async ({ projectId }) => {
-  const tasks = await getTasks(projectId!);
+const TasksTable: FC<TasksTableProps> = async ({ project }) => {
+  const tasks = await getTasks(project?.id!);
+  const teamMembers = await getMembers(project?.teamId!);
   if (!tasks?.length) {
     return (
       <EmptyState>
@@ -33,7 +35,10 @@ const TasksTable: FC<TasksTableProps> = async ({ projectId }) => {
             You have not added any tasks. Add one below.
           </EmptyStateDescription>
           <EmptyStateActions>
-            <AddEntityModal entity="task" form={<AddTaskForm />} />
+            <AddEntityModal
+              entity="task"
+              form={<TaskForm teamMembers={teamMembers!} mode="create" />}
+            />
           </EmptyStateActions>
         </EmptyStateContent>
       </EmptyState>

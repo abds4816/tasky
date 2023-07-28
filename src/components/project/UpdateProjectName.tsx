@@ -53,20 +53,20 @@ const UpdateProjectName: FC<UpdateProjectNameProps> = ({ id, name }) => {
       }
     },
     onError: () => {
-      router.push(`/projects/${id}`);
-      router.refresh();
-      return toast({
-        title: "Project name updated.",
-        description: "Project was updated successfully!",
-        duration: 5000,
-      });
-    },
-    onSuccess: () => {
       return toast({
         title: "Something went wrong.",
         description:
           "Project name wasn't updated successfully. Please try again.",
         variant: "destructive",
+        duration: 5000,
+      });
+    },
+    onSuccess: () => {
+      router.push(`/projects/${id}`);
+      router.refresh();
+      return toast({
+        title: "Project name updated.",
+        description: "Project was updated successfully!",
         duration: 5000,
       });
     },
