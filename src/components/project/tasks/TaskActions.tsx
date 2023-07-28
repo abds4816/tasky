@@ -122,7 +122,7 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
           <DialogHeader className="font-semibold capitalize text-xl">
             Update Task
           </DialogHeader>
-          <TaskForm mode="update" task={task} />
+          {/* <TaskForm teamMembers={} mode="update" task={task} /> */}
         </DialogContent>
       </Dialog>
     </>
