@@ -29,11 +29,11 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       </div>
       <div className="flex items-center gap-2">
         <ViewOptions table={table} />
-        <AddEntityModal
+        {/* <AddEntityModal
           entity="task"
-          form={<AddTaskForm mode="create" />}
+          form={<AddTaskForm teamMembers={} mode="create" />}
           ButtonVariant="default"
-        />
+        /> */}
       </div>
     </div>
   );
