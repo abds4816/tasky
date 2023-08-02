@@ -26,15 +26,18 @@ import {
 import { useState } from "react";
 import { Pagination } from "./Pagination";
 import { Toolbar } from "./Toolbar";
+import { TeamMember } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  members: TeamMember[] | undefined;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  members,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -54,7 +57,7 @@ export function DataTable<TData, TValue>({
   });
   return (
     <>
-      <Toolbar table={table} />
+      <Toolbar table={table} members={members} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

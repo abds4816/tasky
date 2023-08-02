@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+import { formatTimeToNow } from "@/lib/utils";
 
 interface ProjectCardProps extends Project {}
 
@@ -27,8 +27,9 @@ const ProjectCard: FC<ProjectCardProps> = ({
           <CardTitle>{name}</CardTitle>
           <CardDescription>{`${description} ${isCompleted}`}</CardDescription>
         </CardHeader>
-        <CardFooter>
-          <p>{formatDate(createdAt.toLocaleString())}</p>
+        <CardFooter className="flex-col items-start">
+          <p>{formatTimeToNow(new Date(updatedAt))}</p>
+          <p>{formatTimeToNow(new Date(createdAt))}</p>
         </CardFooter>
       </Card>
     </Link>

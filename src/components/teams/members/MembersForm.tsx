@@ -30,8 +30,8 @@ import { useForm } from "react-hook-form";
 
 interface MembersFormProps {}
 
-const MembersForm: FC<MembersFormProps> =  ({}) => {
-  const params = useParams()
+const MembersForm: FC<MembersFormProps> = ({}) => {
+  const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -41,13 +41,8 @@ const MembersForm: FC<MembersFormProps> =  ({}) => {
   });
 
   const { mutate: addMemeber, isLoading } = useMutation({
-    mutationFn: async ({
-      name,
-      email,
-      role,
-      imageUrl
-    }: MemberRequest) => {
-      const payload: MemberRequest = { name, email, role, imageUrl};
+    mutationFn: async ({ name, email, role, imageUrl }: MemberRequest) => {
+      const payload: MemberRequest = { name, email, role, imageUrl };
       //   if (props.mode === "create") {
       //     const { data } = await axios.post(
       //       `/api/${params.projectId}/tasks`,
@@ -61,8 +56,11 @@ const MembersForm: FC<MembersFormProps> =  ({}) => {
       //     );
       //     return data;
       //   }
-      const {data} = await axios.post(`/api/${params.teamId}/members`, payload)
-      return data
+      const { data } = await axios.post(
+        `/api/teams/${params.teamId}/members`,
+        payload
+      );
+      return data;
     },
     onError: () => {
       return toast({

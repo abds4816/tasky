@@ -12,9 +12,9 @@ import AddEntityModal from "@/components/AddEntityModal";
 import { DataTable } from "@/components/project/tasks/DataTable";
 import { columns } from "@/components/project/tasks/Columns";
 import { getTasks } from "@/actions/getTasks";
-import TaskForm from "@/components/project/tasks/TaskForm";
 import { Project } from "@prisma/client";
 import { getMembers } from "@/actions/getMembers";
+import AddTaskForm from "../tasks/AddTaskForm";
 
 interface TasksTableProps {
   project: Project | undefined;
@@ -37,7 +37,7 @@ const TasksTable: FC<TasksTableProps> = async ({ project }) => {
           <EmptyStateActions>
             <AddEntityModal
               entity="task"
-              form={<TaskForm teamMembers={teamMembers!} mode="create" />}
+              form={<AddTaskForm teamMembers={teamMembers!} />}
             />
           </EmptyStateActions>
         </EmptyStateContent>
@@ -46,7 +46,7 @@ const TasksTable: FC<TasksTableProps> = async ({ project }) => {
   }
   return (
     <>
-      <DataTable columns={columns} data={tasks} />
+      <DataTable columns={columns} data={tasks} members={teamMembers} />
     </>
   );
 };

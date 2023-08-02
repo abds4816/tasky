@@ -47,9 +47,9 @@ const page: FC<pageProps> = async ({ params }) => {
         </EmptyState>
       ) : (
         <>
-          {/* {team.members.map(member=>(
+          {team.members.map((member) => (
             <p key={member.id}>{member.name}</p>
-          ))} */}
+          ))}
         </>
       )}
     </TeamLayout>

@@ -2,18 +2,18 @@
 
 import { Table } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AddEntityModal from "@/components/AddEntityModal";
-import AddTaskForm from "@/components/project/tasks/TaskForm";
 import { ViewOptions } from "./ViewOptions";
-// import { DataTableViewOptions } from "@/app/examples/tasks/components/data-table-view-options"
+import { TeamMember } from "@prisma/client";
+import AddTaskForm from "./AddTaskForm";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
+  members: TeamMember[] | undefined;
 }
 
-export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
+export function Toolbar<TData>({ table, members }: ToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-between gap-2 py-4 md:py-8">
       <div className="flex flex-1 items-center space-x-2">
@@ -29,11 +29,11 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       </div>
       <div className="flex items-center gap-2">
         <ViewOptions table={table} />
-        {/* <AddEntityModal
+        <AddEntityModal
           entity="task"
-          form={<AddTaskForm teamMembers={} mode="create" />}
+          form={<AddTaskForm teamMembers={members} />}
           ButtonVariant="default"
-        /> */}
+        />
       </div>
     </div>
   );
