@@ -1,5 +1,6 @@
 "use client";
 
+import { getTeamById } from "@/actions/getTeamById";
 import ImageUpload from "@/components/ImageUpload";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,8 +30,8 @@ import { useForm } from "react-hook-form";
 
 interface MembersFormProps {}
 
-const MembersForm: FC<MembersFormProps> = ({}) => {
-  const params = useParams();
+const MembersForm: FC<MembersFormProps> =  ({}) => {
+  const params = useParams()
   const router = useRouter();
   const { toast } = useToast();
 
@@ -44,10 +45,9 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
       name,
       email,
       role,
-      imageUrl,
-      team,
+      imageUrl
     }: MemberRequest) => {
-      const payload: MemberRequest = { name, email, role, imageUrl, team };
+      const payload: MemberRequest = { name, email, role, imageUrl};
       //   if (props.mode === "create") {
       //     const { data } = await axios.post(
       //       `/api/${params.projectId}/tasks`,
@@ -61,6 +61,8 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
       //     );
       //     return data;
       //   }
+      const {data} = await axios.post(`/api/${params.teamId}/members`, payload)
+      return data
     },
     onError: () => {
       return toast({
@@ -88,7 +90,6 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
             email: form.getValues("email"),
             role: form.getValues("role"),
             imageUrl: form.getValues("imageUrl"),
-            team: form.getValues("team"),
           })
         )}
         className="space-y-6"
@@ -180,7 +181,7 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="imageUrl"
           render={({ field }) => (
@@ -196,8 +197,8 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
               </FormControl>
             </FormItem>
           )}
-        />
-        <FormField
+        /> */}
+        {/* <FormField
           control={form.control}
           name="team"
           render={({ field }) => (
@@ -225,7 +226,7 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <div className="flex justify-end">
           <Button type="submit" isLoading={isLoading}>
             {/* {props.mode === "update" ? "Update" : "Submit"} */}

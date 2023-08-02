@@ -30,7 +30,7 @@ const page: FC<pageProps> = async ({ params }) => {
   }
   return (
     <TeamLayout Team={team} activeTab="members">
-      {!team.members.length && (
+      {!team.members.length ? (
         <EmptyState>
           <EmptyStateContent>
             <EmptyStateIcon>
@@ -41,10 +41,16 @@ const page: FC<pageProps> = async ({ params }) => {
               You have not added any members. Add one below.
             </EmptyStateDescription>
             <EmptyStateActions>
-              <AddEntityModal entity="task" form={<MembersForm />} />
+              <AddEntityModal entity="member" form={<MembersForm />} />
             </EmptyStateActions>
           </EmptyStateContent>
         </EmptyState>
+      ) : (
+        <>
+          {/* {team.members.map(member=>(
+            <p key={member.id}>{member.name}</p>
+          ))} */}
+        </>
       )}
     </TeamLayout>
   );

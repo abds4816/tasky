@@ -61,9 +61,10 @@ const ProjectStatusForm: FC<ProjectStatusFormProps> = ({ id, isCompleted }) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={() =>
+        onSubmit={(e) =>{
+          e.preventDefault()
           UpdateStatus({ isCompleted: form.getValues("isCompleted") })
-        }
+        }}
       >
         <FormField
           control={form.control}

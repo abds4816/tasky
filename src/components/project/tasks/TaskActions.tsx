@@ -103,17 +103,16 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <Button
-                variant="destructive"
-                isLoading={isLoading}
-                onClick={() => {
-                  deleteTask(task.id);
-                }}
-              >
-                confirm
-              </Button>
-            </AlertDialogAction>
+            <Button
+              variant="destructive"
+              isLoading={isLoading}
+              onClick={() => {
+                setShowDeleteAlert(true);
+                deleteTask(task.id);
+              }}
+            >
+              confirm
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
