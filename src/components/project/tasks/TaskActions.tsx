@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -25,13 +24,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import TaskForm from "@/components/project/tasks/TaskForm";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 
 interface TaskActionsProps {
   task: Task;
@@ -47,7 +40,7 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
     mutationFn: async (id: number) => {
       if (id) {
         const { data } = await axios.delete(
-          `/api/${params.projectId}/tasks/${id}`
+          `/api/projects/${params.projectId}/tasks/${id}`
         );
         return data;
       }

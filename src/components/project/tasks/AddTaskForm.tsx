@@ -46,7 +46,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ teamMembers }) => {
     mutationFn: async ({ title, status, priority }: TaskRequest) => {
       const payload: TaskRequest = { title, status, priority };
       const { data } = await axios.post(
-        `/api/${params.projectId}/tasks`,
+        `/api/projects/${params.projectId}/tasks`,
         payload
       );
       return data;
