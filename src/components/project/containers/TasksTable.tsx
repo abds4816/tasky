@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/empty-state";
 import { LayoutList } from "lucide-react";
 import AddEntityModal from "@/components/AddEntityModal";
-import { DataTable } from "@/components/project/tasks/DataTable";
-import { columns } from "@/components/project/tasks/Columns";
 import { getTasks } from "@/actions/getTasks";
 import { Project } from "@prisma/client";
 import { getMembers } from "@/actions/getMembers";
-import AddTaskForm from "../tasks/AddTaskForm";
+import AddTaskForm from "@/components/project/tasks/AddTaskForm";
+import { DataTable } from "@/components/data-table/DataTable";
+import { taskColumns } from "@/components/project/tasks/TaskColumns";
 
 interface TasksTableProps {
   project: Project | undefined;
@@ -45,9 +45,13 @@ const TasksTable: FC<TasksTableProps> = async ({ project }) => {
     );
   }
   return (
-    <>
-      <DataTable columns={columns} data={tasks} members={teamMembers} />
-    </>
+    <DataTable
+      columns={taskColumns}
+      data={tasks}
+      form={<AddTaskForm teamMembers={teamMembers} />}
+      entity="task"
+      searchColumn="title"
+    />
   );
 };
 

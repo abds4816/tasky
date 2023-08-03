@@ -19,26 +19,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Task } from "@prisma/client";
+import { TeamMember } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import UpdateTaskForm from "./UpdateTaskForm";
 
-interface TaskActionsProps {
-  task: Task;
+interface MemberActionsProps {
+  member: TeamMember;
 }
 
-const TaskActions: FC<TaskActionsProps> = ({ task }) => {
+const MemberActions: FC<MemberActionsProps> = ({ member }) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [openUpdateTask, setOpenUpdateTask] = useState<boolean>(false);
   const router = useRouter();
   const params = useParams();
   const { toast } = useToast();
   const { mutate: deleteTask, isLoading } = useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: string) => {
       if (id) {
         const { data } = await axios.delete(
           `/api/projects/${params.projectId}/tasks/${id}`
@@ -102,7 +101,7 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
               isLoading={isLoading}
               onClick={() => {
                 setShowDeleteAlert(true);
-                deleteTask(task.id);
+                deleteTask(member.id);
               }}
             >
               confirm
@@ -115,11 +114,11 @@ const TaskActions: FC<TaskActionsProps> = ({ task }) => {
           <DialogHeader className="font-semibold capitalize text-xl">
             Update Task
           </DialogHeader>
-          <UpdateTaskForm task={task} />
+          {/* <TaskForm teamMembers={} mode="update" task={task} /> */}
         </DialogContent>
       </Dialog>
     </>
   );
 };
 
-export default TaskActions;
+export default MemberActions;

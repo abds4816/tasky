@@ -28,9 +28,9 @@ import { useParams, useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 
-interface MembersFormProps {}
+interface AddMembersFormProps {}
 
-const MembersForm: FC<MembersFormProps> = ({}) => {
+const AddMembersForm: FC<AddMembersFormProps> = ({}) => {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -43,19 +43,6 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
   const { mutate: addMemeber, isLoading } = useMutation({
     mutationFn: async ({ name, email, role, imageUrl }: MemberRequest) => {
       const payload: MemberRequest = { name, email, role, imageUrl };
-      //   if (props.mode === "create") {
-      //     const { data } = await axios.post(
-      //       `/api/${params.projectId}/tasks`,
-      //       payload
-      //     );
-      //     return data;
-      //   } else {
-      //     const { data } = await axios.patch(
-      //       `/api/${params.projectId}/tasks/${props.task?.id}`,
-      //       payload
-      //     );
-      //     return data;
-      //   }
       const { data } = await axios.post(
         `/api/teams/${params.teamId}/members`,
         payload
@@ -63,18 +50,18 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
       return data;
     },
     onError: () => {
+      router.refresh();
       return toast({
-        title: "Something went wrong",
-        description: "Task wasn't created successfully. Please try again.",
-        variant: "destructive",
+        title: "Member created.",
+        description: "Member was created successfully!",
         duration: 5000,
       });
     },
     onSuccess: () => {
-      router.refresh();
       return toast({
-        title: "Task created.",
-        description: "Task was created successfully!",
+        title: "Something went wrong",
+        description: "Member wasn't created successfully. Please try again.",
+        variant: "destructive",
         duration: 5000,
       });
     },
@@ -103,9 +90,6 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
                   type="text"
                   disabled={isLoading}
                   placeholder="enter member name..."
-                  //   defaultValue={
-                  //     props.mode === "update" ? props.task?.title : ""
-                  //   }
                   {...field}
                 />
               </FormControl>
@@ -124,9 +108,6 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
                   type="text"
                   disabled={isLoading}
                   placeholder="enter member email..."
-                  //   defaultValue={
-                  //     props.mode === "update" ? props.task?.title : ""
-                  //   }
                   {...field}
                 />
               </FormControl>
@@ -138,43 +119,30 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
           control={form.control}
           name="role"
           render={({ field }) => (
-            // <FormItem>
-            //   <FormLabel>Priority</FormLabel>
-            //   <Select
-            //     disabled={isLoading}
-            //     onValueChange={field.onChange}
-            //     defaultValue={
-            //       props.mode === "update" ? props.task?.priority : ""
-            //     }
-            //     value={field.value}
-            //   >
-            //     <FormControl>
-            //       <SelectTrigger>
-            //         <SelectValue placeholder="select task priority" />
-            //       </SelectTrigger>
-            //     </FormControl>
-            //     <SelectContent>
-            //       <SelectItem value="low">low</SelectItem>
-            //       <SelectItem value="medium">medium</SelectItem>
-            //       <SelectItem value="high">high</SelectItem>
-            //     </SelectContent>
-            //   </Select>
-
-            //   <FormMessage />
-            // </FormItem>
             <FormItem>
               <FormLabel>role</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  disabled={isLoading}
-                  placeholder="enter member role..."
-                  //   defaultValue={
-                  //     props.mode === "update" ? props.task?.title : ""
-                  //   }
-                  {...field}
-                />
-              </FormControl>
+              <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                value={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select team" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="team leader">team leader</SelectItem>
+                  <SelectItem value="team manager">team manager</SelectItem>
+                  <SelectItem value="senior employee">
+                    senior employee
+                  </SelectItem>
+                  <SelectItem value="junior employee">
+                    junior employee
+                  </SelectItem>
+                  <SelectItem value="intern">intern</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -196,39 +164,9 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
             </FormItem>
           )}
         /> */}
-        {/* <FormField
-          control={form.control}
-          name="team"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Team</FormLabel>
-              <Select
-                disabled={isLoading}
-                onValueChange={field.onChange}
-                // defaultValue={
-                //   props.mode === "update" ? props.task?.priority : ""
-                // }
-                value={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="select team" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="low">low</SelectItem>
-                  <SelectItem value="medium">medium</SelectItem>
-                  <SelectItem value="high">high</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
         <div className="flex justify-end">
           <Button type="submit" isLoading={isLoading}>
-            {/* {props.mode === "update" ? "Update" : "Submit"} */}
-            test
+            Submit
           </Button>
         </div>
       </form>
@@ -236,4 +174,4 @@ const MembersForm: FC<MembersFormProps> = ({}) => {
   );
 };
 
-export default MembersForm;
+export default AddMembersForm;

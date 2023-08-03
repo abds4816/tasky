@@ -1,9 +1,5 @@
 "use client";
 
-import AddEntityModal from "@/components/AddEntityModal";
-import AddTaskForm from "@/components/project/tasks/TaskForm";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -23,20 +19,26 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
-import { Pagination } from "./Pagination";
-import { Toolbar } from "./Toolbar";
+import { ReactNode, useState } from "react";
+import { Pagination } from "@/components/data-table/Pagination";
+import { Toolbar } from "@/components/data-table/Toolbar";
 import { TeamMember } from "@prisma/client";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  members: TeamMember[] | undefined;
+  form: ReactNode;
+  entity: "task" | "member";
+  searchColumn: string;
+  members?: TeamMember[] | undefined;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  form,
+  entity,
+  searchColumn,
   members,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -57,7 +59,12 @@ export function DataTable<TData, TValue>({
   });
   return (
     <>
-      <Toolbar table={table} members={members} />
+      <Toolbar
+        table={table}
+        form={form}
+        entity={entity}
+        searchColumn={searchColumn}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

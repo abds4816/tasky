@@ -1,7 +1,8 @@
 import { getTeamById } from "@/actions/getTeamById";
 import AddEntityModal from "@/components/AddEntityModal";
+import { DataTable } from "@/components/data-table/DataTable";
 import TeamLayout from "@/components/teams/TeamLayout";
-import MembersForm from "@/components/teams/members/MembersForm";
+import { memberColumns } from "@/components/teams/members/MemberColumns";
 import {
   EmptyState,
   EmptyStateActions,
@@ -13,6 +14,7 @@ import {
 import { User } from "lucide-react";
 import { notFound } from "next/navigation";
 import { FC } from "react";
+import AddMembersForm from "@/components/teams/members/AddMembersForm";
 
 interface pageProps {
   params: { teamId: string };
@@ -41,16 +43,18 @@ const page: FC<pageProps> = async ({ params }) => {
               You have not added any members. Add one below.
             </EmptyStateDescription>
             <EmptyStateActions>
-              <AddEntityModal entity="member" form={<MembersForm />} />
+              <AddEntityModal entity="member" form={<AddMembersForm />} />
             </EmptyStateActions>
           </EmptyStateContent>
         </EmptyState>
       ) : (
-        <>
-          {team.members.map((member) => (
-            <p key={member.id}>{member.name}</p>
-          ))}
-        </>
+        <DataTable
+          columns={memberColumns}
+          data={team.members}
+          form={<AddMembersForm />}
+          entity="member"
+          searchColumn="name"
+        />
       )}
     </TeamLayout>
   );

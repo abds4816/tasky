@@ -2,11 +2,12 @@
 
 import { FC, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Team } from "@prisma/client";
+import { Team, TeamMember } from "@prisma/client";
 import TeamCard from "@/components/teams/TeamCard";
 
 interface TeamsSectionProps {
   teams: Team[];
+  // members: TeamMember[];
 }
 
 const TeamsSection: FC<TeamsSectionProps> = ({ teams }) => {

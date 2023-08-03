@@ -2,12 +2,12 @@
 
 import { Task } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { ColumnHeader } from "./ColumnHeader";
+import { ColumnHeader } from "@/components/data-table/ColumnHeader";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import TaskActions from "./TaskActions";
+import TaskActions from "@/components/project/tasks/TaskActions";
 
-export const columns: ColumnDef<Task>[] = [
+export const taskColumns: ColumnDef<Task>[] = [
   {
     id: "select",
     header: ({ table }) => (

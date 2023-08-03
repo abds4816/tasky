@@ -16,6 +16,7 @@ import DashboardOverview from "@/components/charts/DashboardOverview";
 import { getTeams } from "@/actions/getTeams";
 import { getMembers } from "@/actions/getMembers";
 import { User } from "lucide-react";
+import MemberAvatar from "@/components/teams/members/MemberAvatar";
 
 export const metadata = {
   title: "Dashboard | Tasky",
@@ -79,7 +80,11 @@ export default async function dashboard() {
             {members?.length ? (
               <ul className="flex flex-col gap-2">
                 {members?.map((member, index) => (
-                  <li key={index}>{member.name}</li>
+                  <li key={index} className="flex gap-2 items-center">
+                    <MemberAvatar member={member} />
+                    {member.name}
+                    {member.tasks.length}
+                  </li>
                 ))}
               </ul>
             ) : (

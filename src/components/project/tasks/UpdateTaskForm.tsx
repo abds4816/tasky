@@ -25,21 +25,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
-import { Task, Team, TeamMember } from "@prisma/client";
+import { Task, TeamMember } from "@prisma/client";
 
-type TaskFormProps = {
-  teamMembers: TeamMember[] | undefined;
-} & (
-  | {
-      mode: "create";
-    }
-  | {
-      mode: "update";
-      task: Task | undefined;
-    }
-);
+type UpdateTaskFormProps = {
+  teamMembers?: TeamMember[] | undefined;
+  task: Task | undefined;
+};
 
-const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
+const UpdateTaskForm: FC<UpdateTaskFormProps> = ({ teamMembers, task }) => {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -53,19 +46,11 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
   const { mutate: addTask, isLoading } = useMutation({
     mutationFn: async ({ title, status, priority }: TaskRequest) => {
       const payload: TaskRequest = { title, status, priority };
-      if (props.mode === "create") {
-        const { data } = await axios.post(
-          `/api/${params.projectId}/tasks`,
-          payload
-        );
-        return data;
-      } else {
-        const { data } = await axios.patch(
-          `/api/${params.projectId}/tasks/${props.task?.id}`,
-          payload
-        );
-        return data;
-      }
+      const { data } = await axios.patch(
+        `/api/projects/${params.projectId}/tasks/${task?.id}`,
+        payload
+      );
+      return data;
     },
     onError: () => {
       return toast({
@@ -108,9 +93,7 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
                   type="text"
                   disabled={isLoading}
                   placeholder="enter task title..."
-                  defaultValue={
-                    props.mode === "update" ? props.task?.title : ""
-                  }
+                  defaultValue={task?.title}
                   {...field}
                 />
               </FormControl>
@@ -127,7 +110,7 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
               <Select
                 disabled={isLoading}
                 onValueChange={field.onChange}
-                defaultValue={props.mode === "update" ? props.task?.status : ""}
+                defaultValue={task?.status}
                 value={field.value}
               >
                 <FormControl>
@@ -156,9 +139,7 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
               <Select
                 disabled={isLoading}
                 onValueChange={field.onChange}
-                defaultValue={
-                  props.mode === "update" ? props.task?.priority : ""
-                }
+                defaultValue={task?.priority}
                 value={field.value}
               >
                 <FormControl>
@@ -186,9 +167,7 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
               <Select
                 disabled={isLoading || !teamMembers?.length}
                 onValueChange={field.onChange}
-                defaultValue={
-                  props.mode === "update" ? props.task?.assignee! : ""
-                }
+                defaultValue={task?.assignee!}
                 value={field.value}
               >
                 <FormControl>
@@ -213,7 +192,7 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
         />
         <div className="flex justify-end">
           <Button type="submit" isLoading={isLoading}>
-            {props.mode === "update" ? "Update" : "Submit"}
+            Update
           </Button>
         </div>
       </form>
@@ -221,4 +200,4 @@ const TaskForm: FC<TaskFormProps> = ({ teamMembers, ...props }) => {
   );
 };
 
-export default TaskForm;
+export default UpdateTaskForm;

@@ -2,6 +2,7 @@ import { Team } from "@prisma/client";
 import { FC } from "react";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -30,6 +31,9 @@ const TeamCard: FC<TeamCardProps> = ({
             This team contains {membersCount} member(s)
           </CardDescription>
         </CardHeader>
+        <CardContent className="flex items-center justify-start">
+          {}
+        </CardContent>
         <CardFooter>
           <p>{formatTimeToNow(new Date(createdAt))}</p>
         </CardFooter>

@@ -10,6 +10,9 @@ export async function getMembers(teamId?: string) {
           teamId,
           userId: user.id,
         },
+        include: {
+          tasks: true,
+        },
         orderBy: {
           createdAt: "desc",
         },
@@ -19,6 +22,9 @@ export async function getMembers(teamId?: string) {
       const memebrs = await db.teamMember.findMany({
         where: {
           userId: user.id,
+        },
+        include: {
+          tasks: true,
         },
         orderBy: {
           createdAt: "desc",
