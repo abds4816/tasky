@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+import { formatTimeToNow } from "@/lib/utils";
 
 interface TeamCardProps extends Team {
   membersCount: number;
@@ -31,7 +31,7 @@ const TeamCard: FC<TeamCardProps> = ({
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <p>{formatDate(createdAt.toLocaleString())}</p>
+          <p>{formatTimeToNow(new Date(createdAt))}</p>
         </CardFooter>
       </Card>
     </Link>
